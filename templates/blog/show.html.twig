@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <h1>Je suis un article</h1>
+*
+            <article>
+                <h2>{{article.titre}}</h2>
+                <div class="metadata"> {{article.dateCreation | date('d/m/Y')}} </div>
+                <div class="contenu_news">
+                    <img src="{{article.image}}" alt="">
+                    <p>{{article.contenu | raw}}<p>
+                </div>
+            
+            </article>
+*
+        
+    </body>
+</html>

@@ -1,0 +1,77 @@
+{% extends 'base.html.twig'%}
+
+{% block body %}
+    <body>
+        <h2 style="text-align:center">Voici les dernières nouveautés concernant ma chaîne !</h2>
+
+        <section    class="articlenews"
+                    style="display:flex;
+                        flex-wrap:wrap;
+                        flew-direction:row;
+                        padding-left:10em;
+                        width:100%">
+
+        {% for article in articlenews %}
+      
+            <article    class="jumbotron" 
+                        style="width:20em;
+                            height:30em;
+                            margin-left:1em;
+                            margin-right:1em;
+                            margin-bottom:2em;
+                            margin-top:2em;
+                            padding-top:0px;
+                            padding-left:0px;
+                            padding-right:0px;
+                            padding-bottom:15px">
+
+            <img    src="http://placehold.it/350x250" alt="" 
+                    style="width:100%;
+                        margin-bottom:1em;">
+                
+           
+                <div    class="contenu_news"
+                        style="width:100%;
+                            height:100%;
+                            padding-left:1em;
+                            padding-right:1em;">
+
+                    <div style="height:100%">
+                        <h2 class="titre_article"
+                            style="color:#fff;
+                                font-weight:600;
+                             
+                                line-height:0.9em;
+                                text-align:justify;
+                                height:15%;
+                                font-size:1.5em;">
+                        {{article.titre}}</h2>
+
+                        <div    class="contenu_article"
+                                style="color:#fff;
+                               
+                                    text-align:justify;
+                                    font-size:1em;
+                                    height:28%">
+                        {{article.contenu | raw}}</div>
+                        
+
+                        <div    class="metadata"
+                                style="color:#fff;
+                                margin-bottom:-30px">
+                        Posté le : {{article.dateCreation | date('d/m/Y')}} </div>
+                    </div>
+                    
+                </div>
+
+                
+
+            
+            </article>
+            
+        {% endfor %}
+        </section>
+        
+    </body>
+{% endblock %}
+ 
