@@ -7,8 +7,8 @@ security:
         in_memory: { memory: ~ }
         in_database:
             entity:
-                class: App\Entity\Admin
-                property: pseudo
+                class: App\Entity\User
+                property: username
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -21,6 +21,13 @@ security:
             form_login: 
                 login_path: admin_login
                 check_path: admin_login
+            guard:
+                authenticators:
+                    - App\Security\AuthAuthenticator
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                # target: app_any_route
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

@@ -11,11 +11,14 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 use App\Repository\ArticleNewsRepository;
+use Symfony\Component\Routing\Annotation\Route;
 
 class BlogController extends AbstractController
 {
     
-
+    /**
+     * @Route("/", name="home")
+     */
     public function index()
     {
         $repo = $this->getDoctrine()->getRepository(ArticleNews::class);
@@ -27,7 +30,6 @@ class BlogController extends AbstractController
             'articlenews'=> $articlenews
         ]);
     }
-
 
     public function new(Request $request, EntityManagerInterface $manager)
     {
@@ -49,8 +51,6 @@ class BlogController extends AbstractController
 
             return $this->redirectToRoute('homepage');
         }
-
-
 
     	return $this->render('blog/create.html.twig',[
             'formArticle'=>$form->createView()
