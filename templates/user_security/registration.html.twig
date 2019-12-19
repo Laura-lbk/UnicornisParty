@@ -1,10 +1,16 @@
+{# View du formulaire d'Inscription #}
+
 {% extends 'base.html.twig' %}
+
+{% block stylesheets %}<link rel="stylesheet" href="/css/formulaire.css">{% endblock %}
 
 {% block body %}
 
 {{ form_start(form) }}
+<div class="formulaire">
 {{ form_widget(form) }}
-<button type="submit" class="btn btn-success">Inscription</button>
+<div>
+    <button type="submit" class="btn-sucess">Inscription</button>
 {{ form_end(form) }}
 
 {% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig'%}
+
+{% block stylesheets %}<link rel="stylesheet" href="/css/displaynews.css">{% endblock %}
+
+{% block body %}
+    <body>
+    
+        <section class="articlenews">
+
+        <h2 class="title_articlenews">Voici les dernières nouveautés concernant ma chaîne !</h2>
+
+        {% for article in articlenews %}
+      
+            <article class="jumbotron">
+            <img class="image-articlenews" src="http://placehold.it/350x200" alt="">
+                <div class="contenu_news">
+                    <div style="height:100%">
+                        <h2 class="titre_articlenews"> {{article.titre}}</h2>
+                        <div class="contenu_articlenews">{{article.contenu | raw}}</div>
+                        <div class="metadata">Posté le : {{article.dateCreation | date('d/m/Y')}} </div>
+                    </div>  
+                </div>
+            </article>
+
+        {% endfor %}
+        </section>
+
+    </body>
+{% endblock %}
+ 

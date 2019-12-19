@@ -1,5 +1,7 @@
 <?php
 
+//Controlleur de la Gestion des Articles de News
+
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,8 +15,10 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use App\Repository\ArticleNewsRepository;
 use Symfony\Component\Routing\Annotation\Route;
 
-class BlogController extends AbstractController
+class ArticleNewsController extends AbstractController
 {
+
+    //Affichage des Artciles News sur la page d'acceuil
     
     /**
      * @Route("/", name="home")
@@ -25,11 +29,17 @@ class BlogController extends AbstractController
 
         $articlenews=$repo->findAll();
 
-        return $this->render('blog/home.html.twig',[
-            'controller_name'=>'BlogController',
+        return $this->render('news/home.html.twig',[
+            'controller_name'=>'ArticleNewsController',
             'articlenews'=> $articlenews
         ]);
     }
+
+    //Création d'un nouvel Article
+
+    /**
+     * @Route("/new", name="new")
+     */
 
     public function new(Request $request, EntityManagerInterface $manager)
     {
@@ -52,7 +62,7 @@ class BlogController extends AbstractController
             return $this->redirectToRoute('homepage');
         }
 
-    	return $this->render('blog/create.html.twig',[
+    	return $this->render('news/create.html.twig',[
             'formArticle'=>$form->createView()
         ]);
     }
@@ -64,15 +74,19 @@ class BlogController extends AbstractController
         $articlenews = $repo->find($id);
 
     	
-        return $this->render('blog/show.html.twig',[
+        return $this->render('news/show.html.twig',[
             'articlenews'=> $articlenews
         ]);
     }
+
+    //Modifier un Article News
 
     public function edit($id)
     {
     	return new Response('<h1>Modifier l\'article ' .$id. '</h1>');
     }
+
+    //Supprimer un Article News
 
     public function remove($id)
     {

@@ -1,0 +1,7 @@
+.bodybackground{
+    background: linear-gradient(325deg, rgba(51,51,55,1) 0%, rgba(96,96,96,1) 45%, rgba(25,24,24,1) 100%);
+    background-size: cover;
+    height: 100%;
+    background-repeat: no-repeat;
+}
+

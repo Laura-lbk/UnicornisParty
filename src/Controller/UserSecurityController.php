@@ -1,5 +1,7 @@
 <?php
 
+//Controller de l'inscription
+
 namespace App\Controller;
 
 use App\Repository\UserRepository;

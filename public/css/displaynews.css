@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+
+.articlenews{
+    font-family:Raleway;
+    display:inline-flex;
+    flex-wrap:wrap;
+    flex-direction:row;
+    padding-left:5em;
+    width:100%;
+    margin: auto;
+
+}
+
+.title_articlenews{
+    font-family:Raleway;
+    text-align: center;
+    margin-top:0.3em;
+    width: 100%;
+}
+
+.jumbotron{
+    background-color: rgb(25, 26, 26);
+    width:30em;
+    height:35em;
+    margin-left:1em;
+    margin-right:1em;
+    margin-bottom:2em;
+    margin-top:2em;
+    padding-top:0px;
+    padding-left:0px;
+    padding-right:0px;
+    padding-bottom:15px;
+}
+
+.jumbotron:hover{
+    box-shadow: 10px 10px 5px rgb(39, 37, 37);
+    cursor: pointer;
+}
+
+.contenu_news{
+    width:100%;
+    height:100%;
+    padding-left:1em;
+    padding-right:1em;
+}
+
+
+
+.titre_articlenews{
+    font-weight:600;
+    line-height:0.9em;
+    text-align:justify;
+    height:15%;
+    font-size:1.8em;
+}
+
+.contenu_articlenews{
+    text-align:justify;
+    font-size:1em;
+    height:28%
+}
+
+.image-articlenews{
+    width:100%;
+    margin-bottom:1em;
+}
+
+.metadata{
+    margin-bottom:-30px
+}

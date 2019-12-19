@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+
+.formulaire{
+    width:50em;
+    margin:auto;
+    margin-top:2em;
+    padding:1em;
+    background-color:#333131;
+    border-radius: 25px;
+    font-family: Raleway;
+   
+}
+
+.btn-sucess{
+    background-color:#7a7777;
+    color:#fff;
+    border: none;
+    border-radius: 10px;
+    padding:0.3em;
+    width: 10em;
+    margin-left:35%;
+    margin-top:2em;
+    font-family: Raleway;
+    font-size: 1.5em;
+}
+
+.btn-sucess:hover {
+    background-color:#ffaaaa;
+    
+  }
+
+@media screen and (max-width: 426px) {
+
+    .formulaire{
+        width:75em;
+        margin:auto;
+        margin-top:2em;
+        padding:1em;
+        background-color:yellow !important;
+        border-radius: 25px;
+        font-family: Raleway;
+    }
+}
