@@ -2,11 +2,15 @@
 
 namespace App\Entity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity("email", message="Cet email est déjà utilisé")
+ * @UniqueEntity("username", message="Ce nom d'utilisateur est déjà utilisé")
  */
 class User implements UserInterface
 {
@@ -18,7 +22,8 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\Email(message="Ceci n'est pas un email Valide")
      */
     private $email;
 
@@ -29,17 +34,24 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min="8", minMessage="Voter mot de passe doit avoir minimum 8 caractères")
+     * @Assert\EqualTo(propertyPath="confirm_password", message="Les mots de passe doivent correspondre")
      */
     private $password;
 
     /**
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="string")
      */
     private $roles;
 
+    /**
+     * @Assert\EqualTo(propertyPath="password", message="Les mots de passe doivent correspondre")
+     */
+    public $confirm_password;
+
     public function __construct()
     {
-        $this->roles = array('ROLE_USER');
+        $this->roles = '1';
     }
 
     public function getId(): ?int
@@ -79,6 +91,13 @@ class User implements UserInterface
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    public function setRoles(string $roles): self
+    {
+        $this->role = $roles;
 
         return $this;
     }

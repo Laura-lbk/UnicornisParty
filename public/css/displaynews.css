@@ -44,20 +44,19 @@
     padding-right:1em;
 }
 
-
-
 .titre_articlenews{
     font-weight:600;
     line-height:0.9em;
-    text-align:justify;
-    height:15%;
+    text-align:center;
+    height:12%;
     font-size:1.8em;
 }
 
 .contenu_articlenews{
+    background-color: rgb(37, 37, 37);
     text-align:justify;
     font-size:1em;
-    height:28%
+    height:30%
 }
 
 .image-articlenews{

@@ -1,5 +1,7 @@
 <?php
 
+//Formulaire d'inscription
+
 namespace App\Form;
 
 use App\Entity\User;
@@ -16,6 +18,7 @@ class RegistrationUserFormType extends AbstractType
             ->add('email')
             ->add('username')
             ->add('password', PasswordType::class)
+            ->add('confirm_password', PasswordType::class)
         ;
     }
 

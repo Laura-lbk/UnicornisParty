@@ -8,9 +8,12 @@
 
 {{ form_start(form) }}
 <div class="formulaire">
-{{ form_widget(form) }}
+{{ form_row(form.email, {'label':'Adresse Email'}) }}
+{{ form_row(form.username, {'label':'Nom d\'Utilisateur'}) }}
+{{ form_row(form.password, {'label':'Mot de Passe'}) }}
+{{ form_row(form.confirm_password, {'label':'Confirmation Mot de Passe'}) }}
 <div>
-    <button type="submit" class="btn-sucess">Inscription</button>
+    <button  type="submit" class="btn-sucess">Inscription</button>
 {{ form_end(form) }}
 
 {% endblock %}
