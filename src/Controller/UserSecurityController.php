@@ -22,8 +22,6 @@ class UserSecurityController extends AbstractController
      */
     public function registration(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {
-
-        
         $user= new User;
 
         $form = $this->createForm(RegistrationUserFormType::class, $user);
