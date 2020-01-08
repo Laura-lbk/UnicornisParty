@@ -1,1 +1,4 @@
-<p>Coucou {{user}}</p>
+
+{% if app.user %}
+    <p>Coucou {{app.user.username}}</p>
+{% endif %}
