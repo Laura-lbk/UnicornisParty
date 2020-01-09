@@ -12,6 +12,9 @@ use App\Entity\ArticleNews;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 use App\Repository\ArticleNewsRepository;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -35,14 +38,18 @@ class ArticleNewsController extends AbstractController
         ]);
     }
 
+
+    /////////////////////////////////////////////////////////ADMINSITRATION////////////////////////////////////////////////////////////////////////
+
     //Création d'un nouvel Article
 
     /**
-     * @Route("/new", name="new")
+     * @Route("/admin/news/add", name="add_news")
+     * @IsGranted("ROLE_ADMIN")
      */
+    public function add(Request $request, EntityManagerInterface $manager)
+    { 
 
-    public function new(Request $request, EntityManagerInterface $manager)
-    {
         $article= new ArticleNews();
 
         $form = $this->createFormBuilder($article)
@@ -92,4 +99,5 @@ class ArticleNewsController extends AbstractController
     {
     	return new Response('<h1>Supprimer l\'article ' .$id. '</h1>');
     }
+
 }

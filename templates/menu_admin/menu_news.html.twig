@@ -1,0 +1,14 @@
+{# Menu pour les articles#}
+
+{% extends 'headers/adminheader.html.twig' %}
+
+{% block stylesheets %}<link rel="stylesheet" href="">{% endblock %}
+
+{% block body %}
+
+<a class="nav-link" href="{{ path('add_news') }}"> Ajouter News </a>
+<a class="nav-link" href=""> Modifier News </a>
+<a class="nav-link" href=""> Supprimer News </a>
+
+
+{% endblock %}
