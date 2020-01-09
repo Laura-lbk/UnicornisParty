@@ -37,8 +37,20 @@ class SecurityController extends AbstractController
         throw new \Exception('This method can be blank - it will be intercepted by the logout key on your firewall');
     }
 
-    public function connexion()
+    /**
+     * @Route("/admin", name="admin_login")
+     */
+    public function loginAdmin(AuthenticationUtils $authenticationUtils): Response
     {
-        return $this->render("coucou je suis une connexion");
+        if ($this->getUser()) {
+            return $this->redirectToRoute('/admin');
+        }
+
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 }

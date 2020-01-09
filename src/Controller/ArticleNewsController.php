@@ -38,6 +38,9 @@ class ArticleNewsController extends AbstractController
         ]);
     }
 
+
+    /////////////////////////////////////////////////////////ADMINSITRATION////////////////////////////////////////////////////////////////////////
+
     //Création d'un nouvel Article
 
     /**
@@ -96,4 +99,5 @@ class ArticleNewsController extends AbstractController
     {
     	return new Response('<h1>Supprimer l\'article ' .$id. '</h1>');
     }
+
 }
