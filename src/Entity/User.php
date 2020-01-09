@@ -29,6 +29,8 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * * @Assert\Length(min="4", minMessage="Votre pseudo doit avoir minimum 4 caractères", max="16", maxMessage="votre pseudo doit avoir maximum 16 caractères")
+     * * @Assert\Regex("/^[a-zA-Z0-9]([._](?![._])|[a-zA-Z0-9]){6,18}[a-zA-Z0-9]$/", message="votre pseudo doit contenir uniquement des caractères alphanumériques, des _ et des .")
      */
     private $username;
 
