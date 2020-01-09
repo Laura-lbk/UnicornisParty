@@ -36,4 +36,9 @@ class SecurityController extends AbstractController
     {
         throw new \Exception('This method can be blank - it will be intercepted by the logout key on your firewall');
     }
+
+    public function connexion()
+    {
+        return $this->render("coucou je suis une connexion");
+    }
 }

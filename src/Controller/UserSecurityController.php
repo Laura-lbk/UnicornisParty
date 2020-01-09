@@ -33,7 +33,7 @@ class UserSecurityController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $hash = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);
-            $user->setRoles("1");
+            $user->setRoles(array('ROLE_USER'));
 
             $manager->persist($user);
             $manager->flush();

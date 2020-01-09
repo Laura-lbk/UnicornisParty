@@ -29,8 +29,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * * @Assert\Length(min="4", minMessage="Votre pseudo doit avoir minimum 4 caractères", max="16", maxMessage="votre pseudo doit avoir maximum 16 caractères")
-     * * @Assert\Regex("/^[a-zA-Z0-9]([._](?![._])|[a-zA-Z0-9]){6,18}[a-zA-Z0-9]$/", message="votre pseudo doit contenir uniquement des caractères alphanumériques, des _ et des .")
+     * @Assert\Length(min="4", minMessage="Votre pseudo doit avoir minimum 4 caractères", max="16", maxMessage="votre pseudo doit avoir maximum 16 caractères")     
      */
     private $username;
 
@@ -42,7 +41,7 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="array")
      */
     private $roles;
 
@@ -51,9 +50,9 @@ class User implements UserInterface
      */
     public $confirm_password;
 
-    public function __construct()
+    public function setRoles()
     {
-        $this->roles = '1';
+        $this->roles = array('ROLE_USER');
     }
 
     public function getId(): ?int
@@ -93,13 +92,6 @@ class User implements UserInterface
     public function setPassword(string $password): self
     {
         $this->password = $password;
-
-        return $this;
-    }
-
-    public function setRoles(string $roles): self
-    {
-        $this->role = $roles;
 
         return $this;
     }
