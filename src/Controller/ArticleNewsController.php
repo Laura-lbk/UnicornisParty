@@ -37,6 +37,19 @@ class ArticleNewsController extends AbstractController
             'articlenews'=> $articlenews
         ]);
     }
+    /**
+     * @Route("/news/{id}", name="show_news")
+     */
+    public function show($id)
+    {
+        $repo = $this->getDoctrine()->getRepository(ArticleNews::class);
+
+        $articlenews = $repo->find($id);
+    	
+        return $this->render('news/show.html.twig',[
+            'article'=> $articlenews
+        ]);
+    }
 
 
     /////////////////////////////////////////////////////////ADMINSITRATION////////////////////////////////////////////////////////////////////////
@@ -74,30 +87,29 @@ class ArticleNewsController extends AbstractController
         ]);
     }
 
-    public function show($id)
-    {
-        $repo = $this->getDoctrine()->getRepository(ArticleNews::class);
 
-        $articlenews = $repo->find($id);
-
-    	
-        return $this->render('news/show.html.twig',[
-            'articlenews'=> $articlenews
-        ]);
-    }
 
     //Modifier un Article News
-
+    /**
+     * @Route("/admin/news/edit", name="edit_news")
+     * @IsGranted("ROLE_ADMIN")
+     */
     public function edit($id)
     {
-    	return new Response('<h1>Modifier l\'article ' .$id. '</h1>');
+        return $this->redirectToRoute('homepage');
+
     }
 
     //Supprimer un Article News
-
+    /**
+     * @Route("/admin/news/delete/{id}", name="delete_news")
+     * @IsGranted("ROLE_ADMIN")
+     */
     public function remove($id)
     {
-    	return new Response('<h1>Supprimer l\'article ' .$id. '</h1>');
+
+
+        return $this->redirectToRoute('homepage');
     }
 
 }

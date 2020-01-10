@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+
+.news_menu_container{
+    width: 100%;
+    height: 90vh;
+}
+
+.choix_news{
+    background-color: #fcd8d8;
+    width: 100%;
+    height: 34%;
+    font-family: Raleway;
+    font-size: 6vh;
+    text-align: center;
+    border: 0.3vw solid #fff;
+    border-bottom: none;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    color:#000;
+    padding-top:10vh;
+}
+
+.choix_news:hover{
+    background-color:#ffffff;
+    text-decoration: none;
+    color:#000;
+}

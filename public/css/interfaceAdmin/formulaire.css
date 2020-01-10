@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+
+.formulaire{
+    width:80em;
+    margin:auto;
+    margin-top:2em;
+    padding:1em;
+    background-color:#333131;
+    border-radius: 10px;
+    font-family: Raleway;
+   
+}
+
+.createnews_txt{
+    height: 30%;
+}
+
+.btn-sucess{
+    background-color:#7a7777;
+    color:#fff;
+    border: none;
+    border-radius: 10px;
+    padding:0.3em;
+    width: 10em;
+    margin-left:35%;
+    margin-top:2em;
+    font-family: Raleway;
+    font-size: 1.5em;
+}
+
+
+.btn-sucess:hover {
+    background-color:#ffaaaa;
+  }

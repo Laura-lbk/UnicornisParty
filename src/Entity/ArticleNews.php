@@ -19,12 +19,13 @@ class ArticleNews
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=1, max=40)
+     * @Assert\Length(min=1, max=60)
      */
     private $titre;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(min=1, max=405)
      */
     private $contenu;
 

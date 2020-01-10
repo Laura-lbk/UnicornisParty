@@ -14,11 +14,12 @@
             <article class="jumbotron">
             <img class="image-articlenews" src="http://placehold.it/350x200" alt="">
                 <div class="contenu_news">
-                    <div style="height:100%">
+                    <div>
                         <h2 class="titre_articlenews"> {{article.titre}}</h2>
                         <div class="contenu_articlenews">{{article.contenu | raw}}</div>
                         <div class="metadata">Posté le : {{article.dateCreation | date('d/m/Y')}} </div>
                     </div>  
+                    <a class="agrandir_news" href="{{path('show_news', {'id':article.id})}}"> Agrandir</a>
                 </div>
             </article>
 

@@ -21,7 +21,7 @@
 .jumbotron{
     background-color: rgb(25, 26, 26);
     width:30em;
-    height:35em;
+    height:40em;
     margin-left:1em;
     margin-right:1em;
     margin-bottom:2em;
@@ -41,6 +41,7 @@
     height:100%;
     padding-left:1em;
     padding-right:1em;
+
 }
 
 .titre_articlenews{
@@ -49,13 +50,16 @@
     text-align:center;
     height:12%;
     font-size:1.8em;
+    overflow-wrap : break-word;
 }
 
 .contenu_articlenews{
     background-color: rgb(37, 37, 37);
     text-align:justify;
     font-size:1em;
-    height:30%
+    height:30%;
+    overflow-wrap : break-word;
+    color:#fff;
 }
 
 .image-articlenews{
@@ -64,5 +68,30 @@
 }
 
 .metadata{
-    margin-bottom:-30px
+    margin-bottom:-50px;
+    text-align: right;
+}
+
+.agrandir_news{
+    background-color: #fcd8d8;
+    width: 50%;
+    height: 5vh;
+    font-family: Raleway;
+    font-size: 3vh;
+    text-align: center;
+    border: none;
+    border-radius:15px;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    color:#000;
+    margin-top:9vh;
+    margin-left:25%;
+
+}
+
+.agrandir_news:hover{
+    background-color:#ffffff;
+    text-decoration: none;
+    color:#000;
 }

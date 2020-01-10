@@ -1,18 +1,18 @@
-<!DOCTYPE html>
-<html>
+{% extends 'base.html.twig'%}
+
+{% block stylesheets %}{% endblock %}
+
+{% block body %}
     <body>
-        <h1>Je suis un article</h1>
-*
+    <h1>COOUCOU</h1>
+
             <article>
-                <h2>{{article.titre}}</h2>
-                <div class="metadata"> {{article.dateCreation | date('d/m/Y')}} </div>
-                <div class="contenu_news">
-                    <img src="{{article.image}}" alt="">
-                    <p>{{article.contenu | raw}}<p>
-                </div>
-            
+                <h2 class="titre_articlenews"> {{article.titre}}</h2>
+                <div class="contenu_articlenews">{{article.contenu | raw}}</div>
+                <div class="metadata">Posté le : {{article.dateCreation | date('d/m/Y')}} </div>
             </article>
-*
+
+
         
     </body>
-</html>
+{% endblock %}
