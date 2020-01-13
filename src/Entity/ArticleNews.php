@@ -25,7 +25,7 @@ class ArticleNews
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\Length(min=1, max=405)
+     * @Assert\Length(min=1, max=5000)
      */
     private $contenu;
 

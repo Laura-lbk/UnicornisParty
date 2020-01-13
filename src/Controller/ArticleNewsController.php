@@ -32,9 +32,14 @@ class ArticleNewsController extends AbstractController
 
         $articlenews=$repo->findAll();
 
+        $contenuarticle=$repo->findAll();
+        $contenuarticle->getContent();
+        $contenuarticle=substr($contenuarticle,0,[405]);
+        
+
         return $this->render('news/home.html.twig',[
             'controller_name'=>'ArticleNewsController',
-            'articlenews'=> $articlenews
+            'articlenews'=> $articlenews,
         ]);
     }
     /**
