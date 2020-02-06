@@ -1,0 +1,18 @@
+.cgu_container{
+    margin:2vw;
+    margin-left:5vw;
+    margin-right:5vw;
+    text-align: center;
+}
+
+.cgu_content{
+    font-size: 1.9vh;
+    width: 75%;
+    text-align: justify;
+    margin-left: 12.5%;
+    margin-bottom: 2vw;
+}
+
+.cgu_title{
+    margin-bottom: 2vw;
+}
