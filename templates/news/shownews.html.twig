@@ -1,0 +1,26 @@
+{% block stylesheets %}<link rel="stylesheet" href="/css/displaynews.css">{% endblock %}
+
+{% block body %}
+    <body>
+    
+        <section class="article_news_container">
+
+        {% for article in articlenews %}
+      
+            <article class="article_news">
+            <img class="image_news" src="http://placehold.it/350x200" alt="">
+                <div class="contenu_news">
+                    <div class="titre_news_container">
+                        <h2 class="titre_news"> {{article.titre}}</h2>
+                        <div class="metadata">Posté le : {{article.dateCreation | date('d/m/Y')}} </div>
+                    </div>  
+                    <a class="btn_normal" href="{{path('show_news', {'id':article.id})}}"> En savoir plus</a>
+                </div>
+            </article>
+
+        {% endfor %}
+        </section>
+
+    </body>
+{% endblock %}
+ 

@@ -1,0 +1,9 @@
+{# Homepage #}
+
+{% extends 'base.html.twig'%}
+
+{% block stylesheets %}<link rel="stylesheet" href="/css/homepage.css">{% endblock %}
+
+{% block body %}
+<div class="news">{{ render(controller('App\\Controller\\ArticleNewsController::showNews')) }}</div>
+{% endblock %}

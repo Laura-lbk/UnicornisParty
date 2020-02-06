@@ -5,15 +5,16 @@
     margin:auto;
     margin-top:2em;
     padding:1em;
-    background-color:#333131;
+    background-color:#1a1a1a;
     border-radius: 25px;
     font-family: Raleway;
+    color:#fff;
    
 }
 
 .btn-sucess{
-    background-color:#7a7777;
-    color:#fff;
+    background-color:#fcd8d8;
+    color:#000;
     border: none;
     border-radius: 10px;
     padding:0.3em;
@@ -25,19 +26,29 @@
 }
 
 .btn-sucess:hover {
-    background-color:#ffaaaa;
-    
+    background-color:#f8bfbf;
   }
 
-@media screen and (max-width: 426px) {
+.registration_link{
+    width: 100%;
+    color:rgb(158, 155, 155);
+    font-size: 1vw;
+    text-align: center;
+    display: block;
+    margin-top:0.5vw;
+}
 
-    .formulaire{
-        width:75em;
-        margin:auto;
-        margin-top:2em;
-        padding:1em;
-        background-color:yellow !important;
-        border-radius: 25px;
-        font-family: Raleway;
-    }
+.registration_link:hover{
+    color:rgb(204, 204, 204);
+    text-decoration: none;
+}
+
+.cgu_link{
+    color:#f8bfbf;
+    font-weight: 600;
+}
+
+.cgu_link:hover{
+    color:rgb(248, 211, 211);
+    text-decoration: none;
 }

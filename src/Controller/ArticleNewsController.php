@@ -21,27 +21,28 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArticleNewsController extends AbstractController
 {
 
-    //Affichage des Artciles News sur la page d'acceuil
+    //Page d'acceuil des News
     
     /**
-     * @Route("/", name="home")
+     * @Route("/", name="homepage")
      */
-    public function index()
+    public function index(){
+        return $this->render('news/homepage.html.twig');
+    }
+
+    
+    //Affichage des Artciles News
+    public function showNews()
     {
         $repo = $this->getDoctrine()->getRepository(ArticleNews::class);
 
-        $articlenews=$repo->findAll();
+        $articlenews=$repo->findAll();   
 
-        $contenuarticle=$repo->findAll();
-        $contenuarticle->getContent();
-        $contenuarticle=substr($contenuarticle,0,[405]);
-        
-
-        return $this->render('news/home.html.twig',[
-            'controller_name'=>'ArticleNewsController',
+        return $this->render('news/shownews.html.twig',[
             'articlenews'=> $articlenews,
         ]);
     }
+
     /**
      * @Route("/news/{id}", name="show_news")
      */
