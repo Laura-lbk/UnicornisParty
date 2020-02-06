@@ -1,97 +1,69 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
 
-.articlenews{
-    font-family:Raleway;
-    display:inline-flex;
-    flex-wrap:wrap;
-    flex-direction:row;
-    padding-left:5em;
-    width:100%;
-    margin: auto;
-
+.article_news_container{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
-.title_articlenews{
-    font-family:Raleway;
-    text-align: center;
-    margin-top:0.3em;
+.article_news{
+    
+    background-color: #1a1a1a;
+    width : 22vw;
+    height: 22vw;
+    margin:2.7%;
+}
+
+.image_news{
     width: 100%;
-}
-
-.jumbotron{
-    background-color: rgb(25, 26, 26);
-    width:30em;
-    height:40em;
-    margin-left:1em;
-    margin-right:1em;
-    margin-bottom:2em;
-    margin-top:2em;
-    padding-top:0px;
-    padding-left:0px;
-    padding-right:0px;
-    padding-bottom:15px;
-}
-
-.jumbotron:hover{
-    cursor: pointer;
+    height: 50%;
 }
 
 .contenu_news{
-    width:100%;
-    height:100%;
-    padding-left:1em;
-    padding-right:1em;
+    width: 100%;
+    height: 50%;
 
 }
 
-.titre_articlenews{
-    font-weight:600;
-    line-height:0.9em;
-    text-align:center;
-    height:12%;
-    font-size:1.8em;
-    overflow-wrap : break-word;
+.titre_news_container{
+    height: 75%;
 }
 
-.contenu_articlenews{
-    background-color: rgb(37, 37, 37);
-    text-align:justify;
-    font-size:1em;
-    height: 25vh;
-    text-overflow: ellipsis;
-    color:#fff;
-}
+.titre_news{
+    color: #ffffff;
+    background-color: aqua;
+    width: 100%;
+    padding: 0.3vw;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    text-align: center;
 
-.image-articlenews{
-    width:100%;
-    margin-bottom:1em;
 }
 
 .metadata{
-    margin-bottom:-50px;
     text-align: right;
+    margin-right: 1vw;
 }
 
-.agrandir_news{
+.btn_normal{
     background-color: #fcd8d8;
     width: 50%;
-    height: 5vh;
     font-family: Raleway;
-    font-size: 3vh;
+    font-size: 1.5vw;
     text-align: center;
     border: none;
-    border-radius:15px;
+    border-radius:5px;
     text-decoration: none;
     display: inline-block;
     cursor: pointer;
     color:#000;
-    margin-top:9vh;
-    margin-left:25%;
+    margin-left: 25%;
+
 
 }
 
-.agrandir_news:hover{
-    background-color:#ffffff;
+.btn_normal:hover{
+    background-color:#f8bfbf;;
     text-decoration: none;
     color:#000;
 }
