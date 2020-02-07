@@ -17,7 +17,7 @@
             </div>
         {% endif %}
 
-        {% for article in articlenews %}
+        {% for article in articlenewspage %}
       
             <article class="article_news">
             <img class="image_news" src="http://placehold.it/350x200" alt="">
@@ -34,10 +34,8 @@
 
         {#Pagination des News#}
         <div class="pagination">
-                {{knp_pagination_render(articlenews)}}
+                {{knp_pagination_render(articlenewspage)}}
         </div>
-
-        
         
         </section>
 

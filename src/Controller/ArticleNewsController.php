@@ -37,15 +37,17 @@ class ArticleNewsController extends AbstractController
     {
         $repo = $this->getDoctrine()->getRepository(ArticleNews::class);
 
-        $articlenews=$paginator->paginate(
-                $repo->findAll(), //on récupère toutes les données du repertoir
+        $articlenews=$repo->findAll();
+
+        $articlenewspage=$paginator->paginate(
+                $articlenews,
                 $request->query->getInt('page',1),
                 6 //max de articles par page
 
         );   
 
         return $this->render('news/shownews.html.twig',[
-            'articlenews'=> $articlenews,
+            'articlenewspage'=>$articlenewspage
         ]);
     }
 
