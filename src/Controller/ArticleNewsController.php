@@ -4,19 +4,20 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
-use Doctrine\ORM\EntityManagerInterface;;
 use App\Entity\ArticleNews;
+use App\Repository\ArticleNewsRepository;
+use Doctrine\ORM\EntityManagerInterface;;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-
-use App\Repository\ArticleNewsRepository;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ArticleNewsController extends AbstractController
 {
@@ -32,11 +33,16 @@ class ArticleNewsController extends AbstractController
 
     
     //Affichage des Artciles News
-    public function showNews()
+    public function showNews(PaginatorInterface $paginator, Request $request)
     {
         $repo = $this->getDoctrine()->getRepository(ArticleNews::class);
 
-        $articlenews=$repo->findAll();   
+        $articlenews=$paginator->paginate(
+                $repo->findAll(), //on récupère toutes les données du repertoir
+                $request->query->getInt('page',1),
+                6 //max de articles par page
+
+        );   
 
         return $this->render('news/shownews.html.twig',[
             'articlenews'=> $articlenews,
@@ -88,7 +94,7 @@ class ArticleNewsController extends AbstractController
             return $this->redirectToRoute('homepage');
         }
 
-    	return $this->render('news/create.html.twig',[
+    	return $this->render('news/add_news.html.twig',[
             'formArticle'=>$form->createView()
         ]);
     }

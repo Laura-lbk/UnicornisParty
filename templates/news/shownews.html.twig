@@ -1,9 +1,21 @@
-{% block stylesheets %}<link rel="stylesheet" href="/css/displaynews.css">{% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" href="/css/news/displaynews.css">
+<link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet"  type='text/css'>
+{% endblock %}
 
 {% block body %}
     <body>
     
         <section class="article_news_container">
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="add_theme_container">
+                <a class="add_theme" href="{{path('add_news')}}">
+                AJOUTER NEWS </br>
+                <img class="add_plus" src="/images/add_plus.png" alt="">
+                </a>
+            </div>
+        {% endif %}
 
         {% for article in articlenews %}
       
@@ -19,6 +31,14 @@
             </article>
 
         {% endfor %}
+
+        {#Pagination des News#}
+        <div class="pagination">
+                {{knp_pagination_render(articlenews)}}
+        </div>
+
+        
+        
         </section>
 
     </body>
