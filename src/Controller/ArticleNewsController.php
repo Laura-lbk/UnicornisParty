@@ -114,14 +114,34 @@ class ArticleNewsController extends AbstractController
 
     }
 
-    //Supprimer un Article News
+    //Choix Suppression Article News
     /**
-     * @Route("/admin/news/delete/{id}", name="delete_news")
+     * @Route("/admin/news/remove/{id}", name="remove_news_choix")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function remove($id)
-    {
 
+    public function choixRemoveNews($id){
+
+        return $this->render('news/remove_news.html.twig',[
+            'id'=>$id
+        ]);
+    }
+
+    //Supprimer un Article News
+    //Choix Suppression Article News
+    /**
+     * @Route("/admin/removed/{id}", name="remove_news")
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function removeNews($id)
+    {
+        //Récupération de l'Article
+        $entityManager = $this->getDoctrine()->getManager();
+        $news = $entityManager->getRepository(ArticleNews::class)->find($id);
+
+        //Suppression de l'Article
+        $entityManager->remove($news);
+        $entityManager->flush();
 
         return $this->redirectToRoute('homepage');
     }

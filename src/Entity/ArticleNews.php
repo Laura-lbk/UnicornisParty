@@ -19,7 +19,7 @@ class ArticleNews
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=1, max=60)
+     * @Assert\Length(min=1, max=80)
      */
     private $titre;
 

@@ -20,11 +20,16 @@
         {% for article in articlenewspage %}
       
             <article class="article_news">
+
+            <a class="remove_news_container" href="{{path('remove_news_choix', {'id':article.id})}}">
+            <img class="remove_news" src="/images/exit.png" alt="">
+            </a>
+
             <img class="image_news" src="http://placehold.it/350x200" alt="">
                 <div class="contenu_news">
                     <div class="titre_news_container">
                         <h2 class="titre_news"> {{article.titre}}</h2>
-                        <div class="metadata">Posté le : {{article.dateCreation | date('d/m/Y')}} </div>
+                        <div class="metadata">Posté le : {{article.dateCreation | date('d/m/Y - H:i')}} </div>
                     </div>  
                     <a class="btn_normal" href="{{path('show_news', {'id':article.id})}}"> En savoir plus</a>
                 </div>
