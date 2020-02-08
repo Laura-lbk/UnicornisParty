@@ -4,17 +4,18 @@
 
 namespace App\Controller;
 
+use App\Form\NewsType;
 use App\Entity\ArticleNews;
 use App\Repository\ArticleNewsRepository;
 use Doctrine\ORM\EntityManagerInterface;;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
 use Symfony\Component\Routing\Annotation\Route;
-
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -102,15 +103,42 @@ class ArticleNewsController extends AbstractController
     }
 
 
-
     //Modifier un Article News
     /**
-     * @Route("/admin/news/edit", name="edit_news")
+     * @Route("/admin/news/edit/{id}", name="edit_news")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function edit($id)
+    public function edit($id, Request $request)
     {
-        return $this->redirectToRoute('homepage');
+        //Récupération du Article News
+        $entityManager = $this->getDoctrine()->getManager();
+        $news = $entityManager->getRepository(ArticleNews::class)->find($id);
+        $titre=$news->getTitre();
+        $contenu=$news->getContenu();
+        $image=$news->getImage();
+
+        //Création d'un Formulaire
+        $form = $this->createForm(NewsType::class, $news);
+        $form->handleRequest($request);
+
+        //Modification du Article News
+        if($form->isSubmitted()&& $form->isValid()){
+            $news->setTitre($form['titre']->getData());
+            $news->setContenu($form['contenu']->getData());
+            $news->setImage($form['image']->getData());
+                
+            $manager=$this->getDoctrine()->getManager();
+            $manager->persist($news);
+            $manager->flush();
+
+            return $this->redirectToRoute('homepage');
+        }
+
+        return $this->render('news/edit_news.html.twig',[
+            'id'=>$id,
+            'contenu'=>$contenu,
+            'form'=>$form->createView()
+        ]);
 
     }
 
@@ -128,7 +156,6 @@ class ArticleNewsController extends AbstractController
     }
 
     //Supprimer un Article News
-    //Choix Suppression Article News
     /**
      * @Route("/admin/removed/{id}", name="remove_news")
      * @IsGranted("ROLE_ADMIN")
