@@ -29,7 +29,7 @@ security:
                     - App\Security\AuthAuthenticator
             logout:
                 path: app_logout
-                target: app_login
+                target: homepage
 
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
