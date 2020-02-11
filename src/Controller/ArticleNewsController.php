@@ -24,17 +24,10 @@ class ArticleNewsController extends AbstractController
 {
 
     //Page d'acceuil des News
-    
     /**
      * @Route("/", name="homepage")
      */
-    public function index(){
-        return $this->render('news/homepage.html.twig');
-    }
-
-    
-    //Affichage des Artciles News
-    public function showNews(PaginatorInterface $paginator, Request $request)
+    public function index(PaginatorInterface $paginator, Request $request)
     {
         $repo = $this->getDoctrine()->getRepository(ArticleNews::class);
 
@@ -47,7 +40,7 @@ class ArticleNewsController extends AbstractController
 
         );   
 
-        return $this->render('news/shownews.html.twig',[
+        return $this->render('news/homepage.html.twig',[
             'articlenewspage'=>$articlenewspage
         ]);
     }
