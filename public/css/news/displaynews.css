@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Raleway:200,300,400,600,700&display=swap');
 
 .article_news_container{
     display:flex;
@@ -8,7 +8,6 @@
 }
 
 .article_news{
-    
     background-color: #1a1a1a;
     width : 22vw;
     height: 22vw;
@@ -18,42 +17,44 @@
 .image_news{
     width: 100%;
     height: 50%;
+
 }
 
 .contenu_news{
     width: 100%;
     height: 50%;
-
 }
 
 .titre_news_container{
-    height: 70%;
+    height: 50%;
 }
 
 .titre_news{
     color: #ffffff;
     width: 100%;
-    font-size: 1.2vw;
+    font-size: 1.1vw;
+    font-family: Raleway;
+    line-height: 1.2vw;
     padding: 0.3vw;
     padding-left: 0.5vw;
     padding-right: 0.5vw;
     text-align: center;
-    font-weight: 200;
+    font-weight: 300;
 
 }
 
-.metadata{
-    position: absolute;
-    text-align: right;
-    margin-left: 0.5vw;
-    margin-top: 0.5vh;
-    z-index: 3;
+.metadata_news{
+
+    color:rgb(184, 184, 184);
+ 
     font-size: 0.8vw;
+    margin-left: 0.5vw;
+    margin-top: 5px;
 }
 
 .btn_normal{
     background-color: #fcd8d8;
-    width: 50%;
+    width: 15vw;
     font-family: Raleway;
     font-size: 1.5vw;
     text-align: center;
@@ -63,9 +64,8 @@
     display: inline-block;
     cursor: pointer;
     color:#000;
-    margin-left: 25%;
-    margin-top: -4vw;
-
+    margin-left: 3.5vw;
+    font-weight: 500;
 
 }
 
@@ -158,3 +158,17 @@
     background-color: #ffc4c4;
     transition: 0.3s;
 }
+
+
+@media(max-width: 425px) {
+    .article_news_container {
+      background-color: rgb(0, 48, 65);
+    }
+
+    .article_news{
+        background-color: #1a1a1a;
+        width : 50vw;
+        height: 22vw;
+        margin:2.7%;
+    }
+  }
