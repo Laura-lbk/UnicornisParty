@@ -18,12 +18,10 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class UserSecurityController extends AbstractController
 {
     /**
-     * @Route("/inscription", name="user_security_registration")
+     * @Route("/registration", name="registration")
      */
     public function registration(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {
-
-        
         $user= new User;
 
         $form = $this->createForm(RegistrationUserFormType::class, $user);
@@ -33,16 +31,23 @@ class UserSecurityController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $hash = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);
-            $user->setRoles("1");
+            $user->setRoles(array('ROLE_USER'));
 
             $manager->persist($user);
             $manager->flush();
 
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('homepage');
         }
 
-        return $this->render('user_security/registration.html.twig', [
+        return $this->render('user/registration.html.twig', [
             'form'=>$form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/cgu", name="cgu")
+     */
+    public function showCGU(){
+        return $this->render('user/cgu.html.twig');
     }
 }

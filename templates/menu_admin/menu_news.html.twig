@@ -1,0 +1,17 @@
+{# Menu pour les articles#}
+
+{% extends 'headers/adminheader.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/interfaceAdmin/menuNews.css">
+{% endblock %}
+
+{% block body %}
+
+<div class="news_menu_container">
+    <a class="choix_news" href="{{ path('add_news') }}"> Ajouter News </a>
+    <a class="choix_news" href=""> Modifier News </a>
+    <a class="choix_news" href=""> Supprimer News </a>
+</div>
+
+{% endblock %}

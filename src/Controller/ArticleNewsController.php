@@ -4,45 +4,73 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
-use Doctrine\ORM\EntityManagerInterface;;
+use App\Form\NewsType;
 use App\Entity\ArticleNews;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-
 use App\Repository\ArticleNewsRepository;
+use Doctrine\ORM\EntityManagerInterface;;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ArticleNewsController extends AbstractController
 {
 
-    //Affichage des Artciles News sur la page d'acceuil
-    
+    //Page d'acceuil des News
     /**
-     * @Route("/", name="home")
+     * @Route("/", name="homepage")
      */
-    public function index()
+    public function index(PaginatorInterface $paginator, Request $request)
     {
         $repo = $this->getDoctrine()->getRepository(ArticleNews::class);
 
         $articlenews=$repo->findAll();
 
-        return $this->render('news/home.html.twig',[
-            'controller_name'=>'ArticleNewsController',
-            'articlenews'=> $articlenews
+        $articlenewspage=$paginator->paginate(
+                $articlenews,
+                $request->query->getInt('page',1),
+                6 //max de articles par page
+
+        );   
+
+        return $this->render('news/homepage.html.twig',[
+            'articlenewspage'=>$articlenewspage
         ]);
     }
+
+    /**
+     * @Route("/news/{id}", name="show_news")
+     */
+    public function show($id)
+    {
+        $repo = $this->getDoctrine()->getRepository(ArticleNews::class);
+
+        $articlenews = $repo->find($id);
+    	
+        return $this->render('news/show.html.twig',[
+            'article'=> $articlenews
+        ]);
+    }
+
+
+    /////////////////////////////////////////////////////////ADMINSITRATION////////////////////////////////////////////////////////////////////////
 
     //Création d'un nouvel Article
 
     /**
-     * @Route("/new", name="new")
+     * @Route("/admin/news/add", name="add_news")
+     * @IsGranted("ROLE_ADMIN")
      */
+    public function add(Request $request, EntityManagerInterface $manager)
+    { 
 
-    public function new(Request $request, EntityManagerInterface $manager)
-    {
         $article= new ArticleNews();
 
         $form = $this->createFormBuilder($article)
@@ -62,34 +90,80 @@ class ArticleNewsController extends AbstractController
             return $this->redirectToRoute('homepage');
         }
 
-    	return $this->render('news/create.html.twig',[
+    	return $this->render('news/add_news.html.twig',[
             'formArticle'=>$form->createView()
         ]);
     }
 
-    public function show($id)
+
+    //Modifier un Article News
+    /**
+     * @Route("/admin/news/edit/{id}", name="edit_news")
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function edit($id, Request $request)
     {
-        $repo = $this->getDoctrine()->getRepository(ArticleNews::class);
+        //Récupération du Article News
+        $entityManager = $this->getDoctrine()->getManager();
+        $news = $entityManager->getRepository(ArticleNews::class)->find($id);
+        $titre=$news->getTitre();
+        $contenu=$news->getContenu();
+        $image=$news->getImage();
 
-        $articlenews = $repo->find($id);
+        //Création d'un Formulaire
+        $form = $this->createForm(NewsType::class, $news);
+        $form->handleRequest($request);
 
-    	
-        return $this->render('news/show.html.twig',[
-            'articlenews'=> $articlenews
+        //Modification du Article News
+        if($form->isSubmitted()&& $form->isValid()){
+            $news->setTitre($form['titre']->getData());
+            $news->setContenu($form['contenu']->getData());
+            $news->setImage($form['image']->getData());
+                
+            $manager=$this->getDoctrine()->getManager();
+            $manager->persist($news);
+            $manager->flush();
+
+            return $this->redirectToRoute('homepage');
+        }
+
+        return $this->render('news/edit_news.html.twig',[
+            'id'=>$id,
+            'contenu'=>$contenu,
+            'form'=>$form->createView()
+        ]);
+
+    }
+
+    //Choix Suppression Article News
+    /**
+     * @Route("/admin/news/remove/{id}", name="remove_news_choix")
+     * @IsGranted("ROLE_ADMIN")
+     */
+
+    public function choixRemoveNews($id){
+
+        return $this->render('news/remove_news.html.twig',[
+            'id'=>$id
         ]);
     }
 
-    //Modifier un Article News
-
-    public function edit($id)
-    {
-    	return new Response('<h1>Modifier l\'article ' .$id. '</h1>');
-    }
-
     //Supprimer un Article News
-
-    public function remove($id)
+    /**
+     * @Route("/admin/removed/{id}", name="remove_news")
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function removeNews($id)
     {
-    	return new Response('<h1>Supprimer l\'article ' .$id. '</h1>');
+        //Récupération de l'Article
+        $entityManager = $this->getDoctrine()->getManager();
+        $news = $entityManager->getRepository(ArticleNews::class)->find($id);
+
+        //Suppression de l'Article
+        $entityManager->remove($news);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('homepage');
     }
+
 }

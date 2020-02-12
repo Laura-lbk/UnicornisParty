@@ -1,0 +1,62 @@
+{# Homepage #}
+
+{% extends 'base.html.twig'%}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="/css/homepage.css">
+<link rel="stylesheet" href="/css/news/displaynews.css">
+<link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet"  type='text/css'>
+{% endblock %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+{% endblock %}
+
+{% block body %}
+<div class="news">
+    <section class="article_news_container">
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="add_theme_container">
+            <a class="add_theme" href="{{path('add_news')}}">
+            AJOUTER NEWS </br>
+            <img class="add_plus" src="/images/add_plus.png" alt="">
+            </a>
+        </div>
+    {% endif %}
+
+    {% for article in articlenewspage %}
+
+        <article class="article_news">
+        {% if is_granted('ROLE_ADMIN') %}
+        <a class="remove_news_container" href="{{path('remove_news_choix', {'id':article.id})}}">
+        <img class="remove_news" src="/images/exit.png" alt="">
+        </a>
+
+        <a class="modify_news" href="{{path('edit_news', {'id':article.id})}}">MODIFIER</a>
+        {% endif %}
+
+        <img class="image_news" src="http://placehold.it/350x200" alt="">
+            <div class="contenu_news">
+                <div class="titre_news_container">
+                    <h2 class="titre_news"> {{article.titre}}</h2>
+                </div>  
+
+                <a class="btn_normal" href="{{path('show_news', {'id':article.id})}}"> En savoir plus</a>
+                <div class="metadata">Posté le : {{article.dateCreation | date('d/m/Y - H:i')}} </div>
+                
+            </div>
+        </article>
+
+    {% endfor %}
+
+    </section>
+    {#Pagination des News#}
+
+    <div class="pagination">
+            {{knp_pagination_render(articlenewspage)}}
+    </div>
+</div>
+{% endblock %}

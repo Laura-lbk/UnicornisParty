@@ -1,0 +1,26 @@
+{# View de la création d'un Article de News#}
+
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+
+{% endblock %}
+{% block body %}
+
+<div class="choix">
+     Voulez vous vraiment supprimer ce Commentaire ?
+     <div>
+        <a class="non" href="{{path('remove_news',{'id': id})}}">OUI</a>
+        <a class="non" href="{{path('homepage')}}">NON</a>
+    </div>
+
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        
+    </script>
+{% endblock %}
