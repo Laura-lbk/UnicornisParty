@@ -123,6 +123,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     transition: 0.3s;
+    cursor: pointer;
 }
 
 .crud_news a{
@@ -138,4 +139,5 @@
     color:white;
     text-decoration: none;
     transition: 0.3s;
+    cursor: pointer;
 }

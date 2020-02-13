@@ -16,6 +16,8 @@
 {% block body %}
     <section class="article_news_container">
 
+    {# Ajouter News #}
+
     {% if is_granted('ROLE_ADMIN') %}
         <div class="add_theme_container">
             <a class="add_theme" href="{{path('add_news')}}">
@@ -28,16 +30,28 @@
     {% for article in articlenewspage %}
 
         <article class="article_news">
+
+        {# Modifier/Supprimer News #}
         {% if is_granted('ROLE_ADMIN') %}
 
         <div class="crud_news">
-            <a href="{{path('edit_news', {'id':article.id})}}">MODIFIER</a>
+            <a  data-toggle="modal" data-target="#modify">MODIFIER</a>
+            <a  data-toggle="modal" data-target="#remove">SUPPRIMER</a>
+        </div>
 
-            <a href="{{path('remove_news_choix', {'id':article.id})}}">SUPPRIMER</a>
+        {# Modale Modify #}
+        <div id="modify" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                 JE VEUX QUE MON PUTA*N DE CONTROLLEUR S'OUVRE ICI RHAAAAAAA !
+                </div>  
+            </div>
         </div>
         
         {% endif %}
 
+        {# Affichage des News #}
         <img class="image_news" src="http://placehold.it/350x200" alt="">
             <div class="contenu_news">
                 <div class="titre_news_container">
@@ -51,11 +65,16 @@
         </article>
 
     {% endfor %}
+    
     <div class="paginator">
             {{knp_pagination_render(articlenewspage)}} 
     </div>
     </section>
-    {#Pagination des News#}
+    
 
     
+{% endblock %}
+
+{% block javascripts %}
+
 {% endblock %}
