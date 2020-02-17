@@ -77,6 +77,11 @@
     color:#000;
 }
 
+.paginator_container{
+    width: 100%;
+    margin-bottom: 40px;
+}
+
 .paginator{
     margin: auto;
 }

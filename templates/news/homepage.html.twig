@@ -35,18 +35,9 @@
         {% if is_granted('ROLE_ADMIN') %}
 
         <div class="crud_news">
-            <a  data-toggle="modal" data-target="#modify">MODIFIER</a>
-            <a  data-toggle="modal" data-target="#remove">SUPPRIMER</a>
-        </div>
+            <a href="#" data-toggle="modal" data-target="#modify" id="modify" article={{article.id}}>Modifier</a>
 
-        {# Modale Modify #}
-        <div id="modify" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                 JE VEUX QUE MON PUTA*N DE CONTROLLEUR S'OUVRE ICI RHAAAAAAA !
-                </div>  
-            </div>
+            <a  data-toggle="modal" data-target="#remove">SUPPRIMER</a>
         </div>
         
         {% endif %}
@@ -66,15 +57,57 @@
 
     {% endfor %}
     
+    <div class="paginator_container">
+    </div>
     <div class="paginator">
             {{knp_pagination_render(articlenewspage)}} 
     </div>
+    
     </section>
+
+    {#---------------------------------------------------------------------------------------------------#}
+        {# Modale Modify #}
+            <div id="#modify" class="modal fade">  
+                <div class="modal-dialog">  
+                    <div class="modal-content">  
+                        <div class="modal-body" id="modal_detail">  
+
+                        </div>  
+                    </div>  
+                </div>  
+            </div> 
+{#---------------------------------------------------------------------------------------------------#}
     
 
     
 {% endblock %}
 
 {% block javascripts %}
+
+<script>
+
+ $(document).ready(function() {
+     
+            document.getElementById("modify").addEventListener("click", modifyModal); 
+
+            function modifyModal() {
+               
+                var url = "/admin/news/edit/" + $(this).attr("article");
+
+                $.ajax({
+                    type: 'post',
+                    url: url, 
+                    success: function (data) {
+
+                        $('#modal_detail').html(data);
+                        $('#modify').modal("show");
+                    },
+                    error: function (data) {
+                        alert( "error" );
+                    }
+                    })
+                };
+            });
+</script>
 
 {% endblock %}

@@ -65,7 +65,7 @@ class ArticleNewsController extends AbstractController
     //Création d'un nouvel Article
 
     /**
-     * @Route("/admin/news/add", name="add_news")
+     * @Route("/admin/news/add", name="add_news" )
      * @IsGranted("ROLE_ADMIN")
      */
     public function add(Request $request, EntityManagerInterface $manager)
@@ -98,7 +98,7 @@ class ArticleNewsController extends AbstractController
 
     //Modifier un Article News
     /**
-     * @Route("/admin/news/edit/{id}", name="edit_news")
+     * @Route("/admin/news/edit/{id}", name="edit_news", methods={"POST"})
      * @IsGranted("ROLE_ADMIN")
      */
     public function edit($id, Request $request)
@@ -106,8 +106,9 @@ class ArticleNewsController extends AbstractController
         //Récupération du Article News
         $entityManager = $this->getDoctrine()->getManager();
         $news = $entityManager->getRepository(ArticleNews::class)->find($id);
+        //je recup le titre,le contenu et l'image de l'objet sur lequel j'ai cliqué
         $titre=$news->getTitre();
-        $contenu=$news->getContenu();
+        $contenu=$news->getContenu(); 
         $image=$news->getImage();
 
         //Création d'un Formulaire
@@ -116,6 +117,7 @@ class ArticleNewsController extends AbstractController
 
         //Modification du Article News
         if($form->isSubmitted()&& $form->isValid()){
+            //je préremplis le form avec les données récupérés 
             $news->setTitre($form['titre']->getData());
             $news->setContenu($form['contenu']->getData());
             $news->setImage($form['image']->getData());
