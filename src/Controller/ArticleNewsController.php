@@ -70,19 +70,35 @@ class ArticleNewsController extends AbstractController
      */
     public function add(Request $request, EntityManagerInterface $manager)
     { 
-
         $article= new ArticleNews();
 
-        $form = $this->createFormBuilder($article)
-                     ->add('titre')
-                     ->add('contenu')
-                     ->add('image')
-                     ->getForm();
+        $form = $this->createForm(NewsType::class, $article);
 
         $form->handleRequest($request);
 
         if($form->isSubmitted()&& $form->isValid()){
             $article->setDateCreation(new \DateTime());
+
+            $imageFile = $form->get('image')->getData();
+
+            if ($imageFile) {
+                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                
+                $safeFilename = preg_replace( '/[^a-z0-9]+/', '-', strtolower( $originalFilename ) );
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
+
+                
+                try {
+                    $imageFile->move(
+                        $this->getParameter('image_news_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                $article->setImage($newFilename);
+            }
 
             $manager->persist($article);
             $manager->flush();

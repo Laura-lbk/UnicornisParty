@@ -10,6 +10,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class ArticleNews
 {
+
+    
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
