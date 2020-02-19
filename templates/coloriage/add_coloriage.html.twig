@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+
+
+{% endblock %}
+
+{% block body %}
+
+<div class="formulaire">
+    {{form_start(form)}}
+
+    {{ form_row(form.nom)}}
+    {{ form_row(form.image)}}
+     {{ form_row(form.path)}}
+
+    <button type="submit" class="btn-sucess">Envoyer</button>
+
+    {{form_end(form)}}
+    </div>
+
+{% endblock %}
