@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:200,300,400,600,700&display=swap');
+
+.coloriage{
+    width : 400px;
+    height : 400px;
+    margin:auto;
+    margin-top: 40px;
+    font-family: Raleway;
+    cursor: pointer;
+}
+
+.add_coloriage{
+    display: block;
+    background-color: #fcd8d8;
+    margin: auto;
+    width: 400px;
+    margin-top: 40px;
+    font-size: 25px;
+    text-align: center;
+    border: none;
+    border-radius:5px;
+    text-decoration: none;
+    padding : 10px;
+    cursor: pointer;
+    color:#000;
+    font-weight: 500;
+}
+
+.add_coloriage:hover{
+    background-color:#f8bfbf;;
+    text-decoration: none;
+    color:#000;
+}
+
+.image_coloriage:hover ~ .nom_coloriage{
+    opacity: 0;
+    transition-timing-function: ease-in-out;
+    transition: 0.3s;
+}
+
+.image_coloriage{
+    width : 400px;
+    height : 400px;
+    object-fit: cover;   
+}
+
+.nom_coloriage{
+    text-align: center;
+    font-size: 1.5rem;
+    color : white;
+    position: absolute;
+    z-index: 2;
+    background-color: #1a1a1a;
+    width: 400px;
+    height : 50px;
+    margin-top: -50px;
+    line-height: 3rem;
+    transition-timing-function: ease-in-out;
+    transition: 0.3s;
+}
+
+h1{
+width: 100%;
+text-align: center;
+margin-top: 20px;
+}

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Coloriage;
 use App\Form\ColoriageType;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,10 +17,22 @@ class ColoriageController extends AbstractController
     /**
      * @Route("/coloriage", name="coloriage")
      */
-    public function index()
+    public function index(PaginatorInterface $paginator, Request $request)
     {
+
+        $repo = $this->getDoctrine()->getRepository(Coloriage::class);
+
+        $coloriages=$repo->findAll();
+
+        $coloriagespage=$paginator->paginate(
+            $coloriages,
+            $request->query->getInt('page',1),
+            6 //max de articles par page
+
+    );
+
         return $this->render('coloriage/index.html.twig', [
-            'controller_name' => 'ColoriageController',
+            'coloriagespage'=>$coloriagespage
         ]);
     }
 

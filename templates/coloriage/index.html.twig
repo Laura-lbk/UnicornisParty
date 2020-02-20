@@ -2,11 +2,38 @@
 
 {% block stylesheets %}
 
+<link rel="stylesheet" href="/css/news/displaynews.css">
+<link rel="stylesheet" href="/css/coloriage/displaycoloriage.css">
 
 {% endblock %}
 
 {% block body %}
 
-<a class="add_theme" href="{{path('add_coloriage')}}">Ajouter Coloriage</a>
+<section class="article_news_container">
+
+    {% if is_granted('ROLE_ADMIN') %}
+    <div class="add_theme_container">
+        <a class="add_coloriage" href="{{path('add_coloriage')}}">Ajouter Coloriage</a>
+    </div>
+    {% endif %}
+
+    <h1>Clique sur une image pour la télécharger</h1>
+
+    {% for coloriage in coloriagespage %}
+
+    <article class="coloriage">
+    <a href="/pdf/{{coloriage.path}}" download>
+        <img class="image_coloriage" src="/images/coloriage/{{coloriage.image}}" alt=""/>
+        <div class="nom_coloriage">{{coloriage.nom}}</div>
+    </a>
+    </article>
+
+    {% endfor %}
+
+    <div class="espace"></div>
+    <div class="paginator">
+            {{knp_pagination_render(coloriagespage)}} 
+    </div>
+    </section>
 
 {% endblock %}
