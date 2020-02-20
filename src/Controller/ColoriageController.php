@@ -43,10 +43,22 @@ class ColoriageController extends AbstractController
     public function addColoriage(Request $request, EntityManagerInterface $manager)
     { 
         $coloriage= new Coloriage();
-
         $form = $this->createForm(ColoriageType::class, $coloriage);
-
         $form->handleRequest($request);
+
+        $repo = $this->getDoctrine()->getRepository(Coloriage::class);
+
+        $allcoloriages=$repo->findall();
+
+        if($allcoloriages){
+            $nbcoloriage=count($allcoloriages);
+        }
+        else{
+            $nbcoloriage=0;
+        }
+
+        $id= ($nbcoloriage+1);
+
 
         if($form->isSubmitted()&& $form->isValid()){
 
@@ -54,40 +66,34 @@ class ColoriageController extends AbstractController
 
             $imageFile = $form->get('image')->getData();
 
-            if ($imageFile) {
-                $originalFilename_image = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
-                
-                $safeFilename_img = preg_replace( '/[^a-z0-9]+/', '-', strtolower( $originalFilename_image ) );
-                $newFilename_img = $safeFilename_img.'-'.uniqid().'.'.$imageFile->guessExtension();
+            $Filename_img="image$id.jpeg";
+            $Filename_pdf="coloriage$id.pdf";
 
+
+            if ($imageFile) {
                 try {
                     $imageFile->move(
                         $this->getParameter('image_coloriage_directory'),
-                        $newFilename_img
+                        $Filename_img
                     );
                 } catch (FileException $e) {
                     // ... handle exception if something happens during file upload
                 }
 
-                $coloriage->setImage($newFilename_img);
+                $coloriage->setImage($Filename_img);
             }
 
             if ($pathFile) {
-                $originalFilename_pdf = pathinfo($pathFile->getClientOriginalName(), PATHINFO_FILENAME);
-                
-                $safeFilename = preg_replace( '/[^a-z0-9]+/', '-', strtolower( $originalFilename_pdf ) );
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$pathFile->guessExtension();
-
                 try {
                     $pathFile->move(
                         $this->getParameter('pdf_coloriage_directory'),
-                        $newFilename
+                        $Filename_pdf
                     );
                 } catch (FileException $e) {
                     // ... handle exception if something happens during file upload
                 }
 
-                $coloriage->setPath($newFilename);
+                $coloriage->setPath($Filename_pdf);
             }
 
             $manager->persist($coloriage);
@@ -97,7 +103,7 @@ class ColoriageController extends AbstractController
         }
 
     	return $this->render('coloriage/add_coloriage.html.twig',[
-            'form'=>$form->createView()
+            'form'=>$form->createView(),
         ]);
     }
 }
