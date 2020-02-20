@@ -33,6 +33,11 @@ class Coloriage
      */
     private $image;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $pdfname;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -70,6 +75,18 @@ class Coloriage
     public function setImage(?string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getPdfname(): ?string
+    {
+        return $this->pdfname;
+    }
+
+    public function setPdfname(string $pdfname): self
+    {
+        $this->pdfname = $pdfname;
 
         return $this;
     }

@@ -22,7 +22,7 @@
     {% for coloriage in coloriagespage %}
 
     <article class="coloriage">
-    <a href="/pdf/{{coloriage.path}}" download>
+    <a href="/pdf/{{coloriage.path}}" download="{{coloriage.pdfname}}">
         <img class="image_coloriage" src="/images/coloriage/{{coloriage.image}}" alt=""/>
         <div class="nom_coloriage">{{coloriage.nom}}</div>
     </a>

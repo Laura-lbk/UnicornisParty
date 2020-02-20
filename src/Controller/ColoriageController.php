@@ -48,8 +48,10 @@ class ColoriageController extends AbstractController
 
         $repo = $this->getDoctrine()->getRepository(Coloriage::class);
 
+        //on récupère la BDD
         $allcoloriages=$repo->findall();
 
+        //on compte combien y a de coloriages enregistrés
         if($allcoloriages){
             $nbcoloriage=count($allcoloriages);
         }
@@ -59,17 +61,30 @@ class ColoriageController extends AbstractController
 
         $id= ($nbcoloriage+1);
 
+        //-----------------------------------------------------------------
+        //On renomme le fichier
+        $Filename_img="image$id.jpeg";
+        $Filename_pdf="coloriage$id.pdf";
+
+        //Si le nom existe déjà on aloue un num random derrière
+        do{
+
+            $numrandom=rand(0,9);
+
+            $Filename_img=substr($Filename_img, 0, -5);
+            $Filename_pdf=substr($Filename_pdf, 0, -4);
+
+            $Filename_img=$Filename_img.$numrandom.'.jpeg';
+            $Filename_pdf=$Filename_pdf.$numrandom.'.pdf';
+        }while(in_array($Filename_img, $allcoloriages)==true);
 
         if($form->isSubmitted()&& $form->isValid()){
 
             $pathFile = $form->get('path')->getData();
 
             $imageFile = $form->get('image')->getData();
-
-            $Filename_img="image$id.jpeg";
-            $Filename_pdf="coloriage$id.pdf";
-
-
+            
+            
             if ($imageFile) {
                 try {
                     $imageFile->move(
