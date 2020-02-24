@@ -3,9 +3,9 @@
 .formulaire{
     width: 80%;
     margin: auto;
-    margin-top: 1.5vw;
-    color: black;
-    font-size: 2vw;
+    margin-top: 40px;
+    border: 1px solid black;
+    padding : 20px;
 }
 
 .contenu{
@@ -13,11 +13,11 @@
     height: 20vw !important;
 }
 
-.btn{
+.btn-sucess{
     background-color: #fcd8d8;
     width: 50%;
     font-family: Raleway;
-    font-size: 1.5vw;
+    font-size: 3em;
     text-align: center;
     border: none;
     border-radius:5px;
@@ -30,8 +30,13 @@
    
 }
 
-.btn:hover{
+.btn-sucess:hover{
     background-color:#f8bfbf;;
     text-decoration: none;
     color:#000;
+}
+
+
+label{
+    font-size: 1.5em;
 }

@@ -2,7 +2,9 @@
 
 {% extends 'base.html.twig' %}
 
-{% block stylesheets %}<link rel="stylesheet" href="/css/interfaceAdmin/formulaire.css">{% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" href="/css/news/adminform.css">
+{% endblock %}
 
 {% form_theme formArticle 'bootstrap_4_layout.html.twig' %}
 
@@ -12,7 +14,7 @@
 
     {{ form_row(formArticle.titre, {'attr': {'placeholder':"Titre"}} )}}
     {{ form_row(formArticle.contenu, {'attr': {'placeholder':"Ecrivez un Article", 'rows':"8"}} )}}
-     {{ form_row(formArticle.image) }}
+    {{ form_row(formArticle.image) }}
 
     <button type="submit" class="btn-sucess">Envoyer</button>
 

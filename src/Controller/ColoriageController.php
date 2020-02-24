@@ -78,14 +78,25 @@ class ColoriageController extends AbstractController
             $Filename_pdf=$Filename_pdf.$numrandom.'.pdf';
         }while(in_array($Filename_img, $allcoloriages)==true);
 
+//----------------------------------------------------------------------
+        
+        
+//----------------------------------------------------------------------
+
         if($form->isSubmitted()&& $form->isValid()){
 
             $pathFile = $form->get('path')->getData();
 
             $imageFile = $form->get('image')->getData();
-            
-            
+
+            $test = $form->get('image')->getData();
+            if($test->isValid()){
+                $test->addFlash('success', 'Image Ajouté avec succés!');}
+
             if ($imageFile) {
+
+        
+
                 try {
                     $imageFile->move(
                         $this->getParameter('image_coloriage_directory'),
