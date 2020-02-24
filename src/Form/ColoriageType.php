@@ -45,6 +45,7 @@ class ColoriageType extends AbstractType
                     ])
                 ],
             ])
+            ->add('pdfname')
         ;
     }
 

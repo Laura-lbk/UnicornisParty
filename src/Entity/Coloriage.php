@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ColoriageRepository")
@@ -23,6 +24,7 @@ class Coloriage
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=1, max=25)
      */
     private $nom;
 
@@ -30,6 +32,11 @@ class Coloriage
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $image;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $pdfname;
 
     public function getId(): ?int
     {
@@ -68,6 +75,18 @@ class Coloriage
     public function setImage(?string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getPdfname(): ?string
+    {
+        return $this->pdfname;
+    }
+
+    public function setPdfname(string $pdfname): self
+    {
+        $this->pdfname = $pdfname;
 
         return $this;
     }

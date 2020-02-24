@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Coloriage;
 use App\Form\ColoriageType;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,10 +17,22 @@ class ColoriageController extends AbstractController
     /**
      * @Route("/coloriage", name="coloriage")
      */
-    public function index()
+    public function index(PaginatorInterface $paginator, Request $request)
     {
+
+        $repo = $this->getDoctrine()->getRepository(Coloriage::class);
+
+        $coloriages=$repo->findAll();
+
+        $coloriagespage=$paginator->paginate(
+            $coloriages,
+            $request->query->getInt('page',1),
+            6 //max de articles par page
+
+    );
+
         return $this->render('coloriage/index.html.twig', [
-            'controller_name' => 'ColoriageController',
+            'coloriagespage'=>$coloriagespage
         ]);
     }
 
@@ -30,51 +43,72 @@ class ColoriageController extends AbstractController
     public function addColoriage(Request $request, EntityManagerInterface $manager)
     { 
         $coloriage= new Coloriage();
-
         $form = $this->createForm(ColoriageType::class, $coloriage);
-
         $form->handleRequest($request);
+
+        $repo = $this->getDoctrine()->getRepository(Coloriage::class);
+
+        //on récupère la BDD
+        $allcoloriages=$repo->findall();
+
+        //on compte combien y a de coloriages enregistrés
+        if($allcoloriages){
+            $nbcoloriage=count($allcoloriages);
+        }
+        else{
+            $nbcoloriage=0;
+        }
+
+        $id= ($nbcoloriage+1);
+
+        //-----------------------------------------------------------------
+        //On renomme le fichier
+        $Filename_img="image$id.jpeg";
+        $Filename_pdf="coloriage$id.pdf";
+
+        //Si le nom existe déjà on aloue un num random derrière
+        do{
+
+            $numrandom=rand(0,9);
+
+            $Filename_img=substr($Filename_img, 0, -5);
+            $Filename_pdf=substr($Filename_pdf, 0, -4);
+
+            $Filename_img=$Filename_img.$numrandom.'.jpeg';
+            $Filename_pdf=$Filename_pdf.$numrandom.'.pdf';
+        }while(in_array($Filename_img, $allcoloriages)==true);
 
         if($form->isSubmitted()&& $form->isValid()){
 
             $pathFile = $form->get('path')->getData();
 
             $imageFile = $form->get('image')->getData();
-
+            
+            
             if ($imageFile) {
-                $originalFilename_image = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
-                
-                $safeFilename_img = preg_replace( '/[^a-z0-9]+/', '-', strtolower( $originalFilename_image ) );
-                $newFilename_img = $safeFilename_img.'-'.uniqid().'.'.$imageFile->guessExtension();
-
                 try {
                     $imageFile->move(
                         $this->getParameter('image_coloriage_directory'),
-                        $newFilename_img
+                        $Filename_img
                     );
                 } catch (FileException $e) {
                     // ... handle exception if something happens during file upload
                 }
 
-                $coloriage->setImage($newFilename_img);
+                $coloriage->setImage($Filename_img);
             }
 
             if ($pathFile) {
-                $originalFilename_pdf = pathinfo($pathFile->getClientOriginalName(), PATHINFO_FILENAME);
-                
-                $safeFilename = preg_replace( '/[^a-z0-9]+/', '-', strtolower( $originalFilename_pdf ) );
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$pathFile->guessExtension();
-
                 try {
                     $pathFile->move(
                         $this->getParameter('pdf_coloriage_directory'),
-                        $newFilename
+                        $Filename_pdf
                     );
                 } catch (FileException $e) {
                     // ... handle exception if something happens during file upload
                 }
 
-                $coloriage->setPath($newFilename);
+                $coloriage->setPath($Filename_pdf);
             }
 
             $manager->persist($coloriage);
@@ -84,7 +118,7 @@ class ColoriageController extends AbstractController
         }
 
     	return $this->render('coloriage/add_coloriage.html.twig',[
-            'form'=>$form->createView()
+            'form'=>$form->createView(),
         ]);
     }
 }
