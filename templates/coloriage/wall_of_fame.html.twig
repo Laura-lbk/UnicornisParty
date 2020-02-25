@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+
+<link rel="stylesheet" href="/css/news/displaynews.css">
+<link rel="stylesheet" href="/css/coloriage/wall.css">
+<link rel="stylesheet" href="/css/coloriage/masonry.css">
+
+{% endblock %}
+
+{% block body %}
+
+<section class="article_news_container">
+
+    {% if is_granted('ROLE_ADMIN') %}
+    <div class="add_theme_container">
+        <a class="add_fanart" href="{{path('add_fanart')}}">Ajouter</a>
+    </div>
+    {% endif %}
+
+    <h1>Si toi aussi tu veux m'envoyer un Fan Art : </h1>
+
+
+<div class="masonrycontainer">
+    <div class="masonry">
+        {% for art in fanart %}
+        <div class="masonry-brick">
+                <img class="fanart" src="/images/fanart/{{art.image}}" alt=""/>
+        </div>
+        {% endfor %}         
+    </div>
+</div>
+
+</section>
+
+{% endblock %}
+
+{% block javascripts %}
+<script>
+function resizeMasonryItem(item){
+  /* Get the grid object, its row-gap, and the size of its implicit rows */
+  var grid = document.getElementsByClassName('masonry')[0],
+      rowGap = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-row-gap')),
+      rowHeight = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-auto-rows'));
+
+  var rowSpan = Math.ceil((item.querySelector('.masonry-content').getBoundingClientRect().height+rowGap)/(rowHeight+rowGap));
+  /* Set the spanning as calculated above (S) */
+  item.style.gridRowEnd = 'span '+rowSpan;
+}
+
+function resizeAllMasonryItems(){
+  // Get all item class objects in one list
+  var allItems = document.getElementsByClassName('masonry-brick');
+
+  for(var i=0;i<allItems.length;i++){
+    resizeMasonryItem(allItems[i]);
+  }
+}
+
+function waitForImages() {
+  var allItems = document.getElementsByClassName('masonry-brick');
+  for(var i=0;i<allItems.length;i++){
+    imagesLoaded( allItems[i], function(instance) {
+      var item = instance.elements[0];
+      resizeMasonryItem(item);
+    } );
+  }
+}
+
+var masonryEvents = ['load', 'resize'];
+masonryEvents.forEach( function(event) {
+  window.addEventListener(event, resizeAllMasonryItems);
+} );
+</script>
+
+{% endblock %}

@@ -7,6 +7,7 @@ parameters:
     image_news_directory: '%kernel.project_dir%/public/images/news_image'
     image_coloriage_directory: '%kernel.project_dir%/public/images/coloriage'
     pdf_coloriage_directory: '%kernel.project_dir%/public/pdf'
+    image_fanart_directory: '%kernel.project_dir%/public/images/fanart'
 
 services:
     # default configuration for services in *this* file
@@ -28,3 +29,5 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    App\Service\ArrayHelper: ~
