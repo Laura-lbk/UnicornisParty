@@ -1,20 +1,48 @@
-.masonrycontainer{
-    width: 100%;
-    background-color: red;
-}
+/* Box-sizing reset: //w3bits.com/?p=3225 */
+  
 
-.masonry {
-    background-color: khaki;
-    display: grid;
-    grid-gap: 20px; /* [1] Add some gap between rows and columns */
-    grid-template-columns: repeat(auto-fill, minmax(400px,1fr));
-    grid-auto-rows: 0;
+  .masonry_container{
+    width: 100%;
   }
 
-.masonry-brick{
-    border:1px solid black;
-    
-}
+  /* The Masonry Container */
+  .masonry {
+    margin: 1.5em auto;
+    column-gap: 1.5em;
+  }
+  
+  /* The Masonry Brick */
+  .item {
+    background: #fff;
+    padding: 1em;
+    margin: 0 0 1.5em;
+    margin-bottom: 30px;
+    display: inline-block;
+    vertical-align: top;
+  }
 
-
- 
+  .masonry-img{
+    max-width: 100%;
+    vertical-align: middle;
+  }
+  
+  /* Masonry on large screens */
+  @media only screen and (min-width: 1024px) {
+    .masonry {
+      column-count: 4;
+    }
+  }
+  
+  /* Masonry on medium-sized screens */
+  @media only screen and (max-width: 1023px) and (min-width: 768px) {
+    .masonry {
+      column-count: 3;
+    }
+  }
+  
+  /* Masonry on small screens */
+  @media only screen and (max-width: 767px) and (min-width: 540px) {
+    .masonry {
+      column-count: 2;
+    }
+  }

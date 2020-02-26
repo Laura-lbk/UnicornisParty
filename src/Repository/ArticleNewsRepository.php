@@ -19,6 +19,21 @@ class ArticleNewsRepository extends ServiceEntityRepository
         parent::__construct($registry, ArticleNews::class);
     }
 
+    public function findImage(): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            SELECT image FROM article_news p
+            ORDER BY p.id ASC
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetchAll();
+    }
+
     // /**
     //  * @return ArticleNews[] Returns an array of ArticleNews objects
     //  */

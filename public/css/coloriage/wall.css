@@ -1,7 +1,28 @@
-.fanart{
-width: 100%;
-}
-
 h1{
     width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    }
+
+.add_fanart{
+    display: block;
+    background-color: #fcd8d8;
+    margin: auto;
+    width: 400px;
+    margin-top: 40px;
+    font-size: 25px;
+    text-align: center;
+    border: none;
+    border-radius:5px;
+    text-decoration: none;
+    padding : 10px;
+    cursor: pointer;
+    color:#000;
+    font-weight: 500;
+}
+
+.add_fanart:hover{
+    background-color:#f8bfbf;;
+    text-decoration: none;
+    color:#000;
 }

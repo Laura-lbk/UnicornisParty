@@ -19,17 +19,23 @@ class FanartController extends AbstractController
     /**
      * @Route("/wall_of_fame", name="wall_of_fame")
      */
-    public function index(Request $request)
+    public function index(PaginatorInterface $paginator, Request $request)
     {
 
         $repo = $this->getDoctrine()->getRepository(Fanart::class);
 
-        $fanart=$repo->findAll(
-            array("date"=>'DESC'));
+        $fanart=$repo->findBy(
+            array(),
+            array('date'=>'DESC'));
 
+        $fanartspage=$paginator->paginate(
+            $fanart,
+            $request->query->getInt('page',1),
+            10 //max de articles par page
+        );
 
         return $this->render('coloriage/wall_of_fame.html.twig', [
-            'fanart'=>$fanart
+            'fanartspage'=>$fanartspage
         ]);
     }
 
