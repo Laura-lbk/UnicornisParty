@@ -31,3 +31,7 @@
 .metadata{
     float: right;
 }
+
+strong{
+    font-weight: bold;
+}
