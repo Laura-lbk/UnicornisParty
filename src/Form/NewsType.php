@@ -4,10 +4,11 @@ namespace App\Form;
 
 use App\Entity\ArticleNews;
 use Symfony\Component\Form\AbstractType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Validator\Constraints\File;
 
 class NewsType extends AbstractType
 {
@@ -15,7 +16,13 @@ class NewsType extends AbstractType
     {
         $builder
             ->add('titre')
-            ->add('contenu')
+            ->add('contenu',CKEditorType::class,[
+                'config'=>[
+                    'uiColor'=>'#ffffffff',
+                    'toolbar'=>'full',
+                    'required'=>true
+                ]
+            ])
             ->add('image', FileType::class, [
                 'label' => 'Image',
                 'mapped' => false,
