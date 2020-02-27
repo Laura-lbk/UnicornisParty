@@ -19,6 +19,21 @@ class ColoriageRepository extends ServiceEntityRepository
         parent::__construct($registry, Coloriage::class);
     }
 
+    public function findImage(): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            SELECT image FROM coloriage p
+            ORDER BY p.id ASC
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetchAll();
+    }
+
     // /**
     //  * @return Coloriage[] Returns an array of Coloriage objects
     //  */

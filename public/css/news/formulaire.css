@@ -13,7 +13,7 @@
     height: 20vw !important;
 }
 
-.btn{
+.btn-sucess{
     background-color: #fcd8d8;
     width: 50%;
     font-family: Raleway;
@@ -30,7 +30,7 @@
    
 }
 
-.btn:hover{
+.btn-sucess:hover{
     background-color:#f8bfbf;;
     text-decoration: none;
     color:#000;
