@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Coloriage;
 use App\Form\ColoriageType;
+use App\Service\Flatener;
+use App\Repository\ColoriageRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,50 +42,45 @@ class ColoriageController extends AbstractController
      * @Route("/admin/coloriage/add", name="add_coloriage")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function addColoriage(Request $request, EntityManagerInterface $manager)
+    public function addColoriage(Request $request, EntityManagerInterface $manager, Flatener $flatener)
     { 
         $coloriage= new Coloriage();
         $form = $this->createForm(ColoriageType::class, $coloriage);
         $form->handleRequest($request);
 
         $repo = $this->getDoctrine()->getRepository(Coloriage::class);
+        $allfanart=$repo->findImage();
 
-        //on récupère la BDD
-        $allcoloriages=$repo->findall();
-
-        //on compte combien y a de coloriages enregistrés
-        if($allcoloriages){
-            $nbcoloriage=count($allcoloriages);
-        }
-        else{
-            $nbcoloriage=0;
-        }
-
-        $id= ($nbcoloriage+1);
-
-        //-----------------------------------------------------------------
-        //On renomme le fichier
-        $Filename_img="image$id.jpeg";
-        $Filename_pdf="coloriage$id.pdf";
-
-        //Si le nom existe déjà on aloue un num random derrière
+        $Filename_img="image.jpeg";
+        $Filename_pdf='';
+        $again=1;
+        $numcompose='';
+    
+            //on aplatit le tableau
+        $flatarray=$flatener->flatten($allfanart);
+    
+            //Si le nom existe déjà on aloue un num random derrière le nom existant
         do{
-
-            $numrandom=rand(0,9);
-
-            $Filename_img=substr($Filename_img, 0, -5);
-            $Filename_pdf=substr($Filename_pdf, 0, -4);
-
-            $Filename_img=$Filename_img.$numrandom.'.jpeg';
-            $Filename_pdf=$Filename_pdf.$numrandom.'.pdf';
-        }while(in_array($Filename_img, $allcoloriages)==true);
+            $numrandom=rand(0,9);//generation d'un num random
+            $Filename_clean=substr($Filename_img, 0, -5);// on enlève le .jpeg
+            $Filename_img=$Filename_clean.$numrandom.'.jpeg';//nom=nom+num+jpeg
+            $numcompose=$numcompose.$numrandom;
+                
+            if(in_array($Filename_img, $flatarray)){ //si le nom existe déjà dans la BDD
+                $again=1;
+            }else{
+                $again=0;
+                $Filename_pdf='pdf'.$numcompose.'.pdf';
+            }
+    
+            }while($again==1);
 
         if($form->isSubmitted()&& $form->isValid()){
 
             $pathFile = $form->get('path')->getData();
-
             $imageFile = $form->get('image')->getData();
-            
+            $name = $form->get('nom')->getData();
+            $safe_name = preg_replace( '/[^a-z0-9]+/', '-', strtolower( $name) );
             
             if ($imageFile) {
                 try {
@@ -110,6 +107,8 @@ class ColoriageController extends AbstractController
 
                 $coloriage->setPath($Filename_pdf);
             }
+
+            $coloriage->setPdfname($safe_name);
 
             $manager->persist($coloriage);
             $manager->flush();

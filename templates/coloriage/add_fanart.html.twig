@@ -3,17 +3,15 @@
 {% block stylesheets %}<link rel="stylesheet" href="/css/news/formulaire.css">{% endblock %}
 
 {% block body %}
+{{counter}}
 
 <div class="formulaire">
+
     {{form_start(form)}}
-
-    {{ form_row(form.nom)}}
-    {{ form_row(form.image)}}
-    {{ form_row(form.path)}}
-
-    <button type="submit" class="btn-sucess">Envoyer</button>
-
+        {{ form_row(form.image)}}
+        <button type="submit" class="btn-sucess">Envoyer</button>
     {{form_end(form)}}
-    </div>
+    
+</div>
 
 {% endblock %}

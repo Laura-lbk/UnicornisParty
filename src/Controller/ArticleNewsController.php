@@ -5,16 +5,17 @@
 namespace App\Controller;
 
 use App\Form\NewsType;
+use App\Service\Flatener;
 use App\Entity\ArticleNews;
 use App\Repository\ArticleNewsRepository;
 use Doctrine\ORM\EntityManagerInterface;;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
+
 use Symfony\Component\HttpFoundation\Response;
-
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -31,7 +32,9 @@ class ArticleNewsController extends AbstractController
     {
         $repo = $this->getDoctrine()->getRepository(ArticleNews::class);
 
-        $articlenews=$repo->findAll();
+        $articlenews=$repo->findBy(
+            array(),
+            array('id'=>'DESC'));
 
         $articlenewspage=$paginator->paginate(
                 $articlenews,
@@ -68,7 +71,7 @@ class ArticleNewsController extends AbstractController
      * @Route("/admin/news/add", name="add_news")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function add(Request $request, EntityManagerInterface $manager)
+    public function add(Request $request, EntityManagerInterface $manager, Flatener $flatener)
     { 
         $article= new ArticleNews();
 
@@ -76,28 +79,48 @@ class ArticleNewsController extends AbstractController
 
         $form->handleRequest($request);
 
+        $repo = $this->getDoctrine()->getRepository(ArticleNews::class);
+        $allfanart=$repo->findImage();
+
+        $Filename_img="image.jpeg";
+        $counter=0;
+        $again=1;
+    
+            //on aplatit le tableau
+        $flatarray=$flatener->flatten($allfanart);
+    
+            //Si le nom existe déjà on aloue un num random derrière le nom existant
+        do{
+            $numrandom=rand(0,9);//generation d'un num random
+            $Filename_clean=substr($Filename_img, 0, -5);// on enlève le .jpeg
+            $Filename_img=$Filename_clean.$numrandom.'.jpeg';//nom=nom+num+jpeg
+
+            $counter=$counter+1;
+                
+            if(in_array($Filename_img, $flatarray)){ //si le nom existe déjà dans la BDD
+                $again=1;
+            }else{
+                $again=0;
+            }
+    
+            }while($again==1);
+
         if($form->isSubmitted()&& $form->isValid()){
             $article->setDateCreation(new \DateTime());
 
             $imageFile = $form->get('image')->getData();
 
             if ($imageFile) {
-                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
-                
-                $safeFilename = preg_replace( '/[^a-z0-9]+/', '-', strtolower( $originalFilename ) );
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
-
-                
                 try {
                     $imageFile->move(
                         $this->getParameter('image_news_directory'),
-                        $newFilename
+                        $Filename_img
                     );
                 } catch (FileException $e) {
                     // ... handle exception if something happens during file upload
                 }
 
-                $article->setImage($newFilename);
+                $article->setImage($Filename_img);
             }
 
             $manager->persist($article);

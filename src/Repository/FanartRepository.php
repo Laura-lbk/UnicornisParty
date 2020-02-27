@@ -2,21 +2,21 @@
 
 namespace App\Repository;
 
-use App\Entity\ArticleNews;
+use App\Entity\Fanart;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
- * @method ArticleNews|null find($id, $lockMode = null, $lockVersion = null)
- * @method ArticleNews|null findOneBy(array $criteria, array $orderBy = null)
- * @method ArticleNews[]    findAll()
- * @method ArticleNews[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Fanart|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Fanart|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Fanart[]    findAll()
+ * @method Fanart[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ArticleNewsRepository extends ServiceEntityRepository
+class FanartRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ArticleNews::class);
+        parent::__construct($registry, Fanart::class);
     }
 
     public function findImage(): array
@@ -24,8 +24,8 @@ class ArticleNewsRepository extends ServiceEntityRepository
         $conn = $this->getEntityManager()->getConnection();
 
         $sql = '
-            SELECT image FROM article_news p
-            ORDER BY p.id ASC
+            SELECT image FROM fanart p
+            ORDER BY p.date ASC
             ';
         $stmt = $conn->prepare($sql);
         $stmt->execute();
@@ -34,16 +34,17 @@ class ArticleNewsRepository extends ServiceEntityRepository
         return $stmt->fetchAll();
     }
 
+
     // /**
-    //  * @return ArticleNews[] Returns an array of ArticleNews objects
+    //  * @return Fanart[] Returns an array of Fanart objects
     //  */
     /*
     public function findByExampleField($value)
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
+        return $this->createQueryBuilder('f')
+            ->andWhere('f.exampleField = :val')
             ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
+            ->orderBy('f.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
@@ -52,10 +53,10 @@ class ArticleNewsRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?ArticleNews
+    public function findOneBySomeField($value): ?Fanart
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
+        return $this->createQueryBuilder('f')
+            ->andWhere('f.exampleField = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getOneOrNullResult()

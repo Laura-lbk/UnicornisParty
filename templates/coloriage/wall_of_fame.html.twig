@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+
+<link rel="stylesheet" href="/css/news/displaynews.css">
+<link rel="stylesheet" href="/css/coloriage/wall.css">
+<link rel="stylesheet" href="/css/coloriage/masonry.css">
+
+{% endblock %}
+
+{% block body %}
+
+<section class="article_news_container">
+
+    {% if is_granted('ROLE_ADMIN') %}
+    <div class="add_theme_container">
+        <a class="add_fanart" href="{{path('add_fanart')}}">Ajouter</a>
+    </div>
+    {% endif %}
+
+    <h1>Si toi aussi tu veux m'envoyer un Fan Art : </h1>
+
+
+<div class="masonry_container">
+    <div class="masonry">
+        {% for art in fanartspage %}
+        <div class="item">
+                <img class="masonry-img" src="/images/fanart/{{art.image}}" alt=""/>
+        </div>
+        {% endfor %}         
+    </div>
+</div>
+
+<div class="espace"></div>
+<div class="paginator">
+            {{knp_pagination_render(fanartspage)}} 
+</div>
+
+</section>
+
+{% endblock %}
+
+{% block javascripts %}
+
+
+{% endblock %}
