@@ -2,12 +2,13 @@
 
 namespace App;
 
-use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
-use Symfony\Component\Config\Loader\LoaderInterface;
+use FOS\CKEditorBundle\FOSCKEditorBundle;
 use Symfony\Component\Config\Resource\FileResource;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\HttpKernel\Kernel as BaseKernel;
+use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Routing\RouteCollectionBuilder;
+use Symfony\Component\HttpKernel\Kernel as BaseKernel;
+use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class Kernel extends BaseKernel
 {
@@ -17,6 +18,9 @@ class Kernel extends BaseKernel
 
     public function registerBundles(): iterable
     {
+        $bundles = array(
+            new FOSCKEditorBundle(),
+        );
         $contents = require $this->getProjectDir().'/config/bundles.php';
         foreach ($contents as $class => $envs) {
             if ($envs[$this->environment] ?? $envs['all'] ?? false) {
