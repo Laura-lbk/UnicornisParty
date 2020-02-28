@@ -26,4 +26,25 @@ class QuestionController extends AbstractController
             
         ]);
     }
+
+    /**
+     * @Route("/questions", name="questions")
+     */
+    public function questions()
+    {
+        function Age($date_naissance)
+        {
+        $am = explode('/', $date_naissance);
+        $an = explode('/', date('d/m/Y'));
+        if(($am[1] < $an[1]) || (($am[1] == $an[1]) && ($am[0] <= $an[0]))) return $an[2] - $am[2];
+        return $an[2] - $am[2] - 1;
+        }
+
+        $date_naissance='28/04/1999';
+        $age=Age($date_naissance);
+
+        return $this->render('questions/questions.html.twig', [
+            'age'=>$age
+        ]);
+    }
 }
