@@ -1,0 +1,47 @@
+.categorie{
+    width: 100%;
+    min-height : 250px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    background-color:#fcd9d9; 
+    margin-top: 20px;
+   
+}
+
+.materiel{
+    margin:auto;
+    margin-top:10px;
+    margin-bottom:10px;
+    height: 250px;
+    width: 250px;
+    padding:10px;
+    transition: ease-in-out;
+    transition-duration: 0.5s;
+}
+
+.categorie:hover .materiel{
+    background-color: #ff7689;
+    transition: ease-in-out;
+    transition-duration: 0.5s;
+}
+
+p{
+    margin-top:10px;
+    font-family: Raleway;
+    line-break: break-all;
+    text-align: center;
+    color:white;
+    font-size: 2em;
+    font-weight: 400;
+}
+
+.text{
+    font-size: 1.5em;
+    line-height: 1.5em;
+    font-weight: 300;
+}
+
+.text-small{
+    font-size: 1em;
+}

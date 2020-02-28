@@ -16,4 +16,14 @@ class QuestionController extends AbstractController
             
         ]);
     }
+
+     /**
+     * @Route("/materiel", name="materiel")
+     */
+    public function materiel()
+    {
+        return $this->render('questions/materiel.html.twig', [
+            
+        ]);
+    }
 }
