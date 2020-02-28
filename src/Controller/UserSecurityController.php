@@ -32,6 +32,8 @@ class UserSecurityController extends AbstractController
             $hash = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);
             $user->setRoles(array('ROLE_USER'));
+            $newsletter = $form->get('newsletter')->getData();
+            $user->setNewsletter($newsletter);
 
             $manager->persist($user);
             $manager->flush();

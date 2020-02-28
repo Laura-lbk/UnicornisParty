@@ -50,6 +50,11 @@ class User implements UserInterface
      */
     public $confirm_password;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $newsletter;
+
     public function setRoles()
     {
         $this->roles = array('ROLE_USER');
@@ -110,5 +115,17 @@ class User implements UserInterface
 
     public function eraseCredentials()
     {
+    }
+
+    public function getNewsletter(): ?bool
+    {
+        return $this->newsletter;
+    }
+
+    public function setNewsletter(?bool $newsletter): self
+    {
+        $this->newsletter = $newsletter;
+
+        return $this;
     }
 }
