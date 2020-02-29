@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}<link rel="stylesheet" href="/css/user/profil.css">{% endblock %}
+
+{% form_theme form _self %}
+
+{% block body %}
+
+
+{% if app.user %}
+<div class="container">
+
+
+<h2>Pseudo :</h2> <p>{{app.user.username}}</p>
+<h2>Email : </h2> <p>{{app.user.email}}</p>
+<p>Modifier Email</p>
+{{ form_start(form) }}
+{{ form_row(form.email,{'attr': {'class': 'email'}}) }}
+
+{% block integer_widget %}
+<link rel="stylesheet" href="/css/user/profil.css">
+<div class="wrapper">   
+    {{ form_row(form.newsletter) }}
+</div>
+{% endblock %}
+
+    <button  type="submit" class="btn">Enregistrer</button>
+{{ form_end(form) }}
+</div>
+{% else %}
+<div class="error">
+<p>Tu n'es pas connecté !🧐</br> Pour consulter ton compte <a href="{{path('app_login')}}">Connecte Toi</a></p>
+</div>
+{% endif %}
+
+{% endblock %}

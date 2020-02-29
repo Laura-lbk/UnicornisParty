@@ -1,0 +1,46 @@
+.error{
+    font-size: 2em;
+    text-align: center;
+    margin-top: 40px;
+}
+
+
+
+.wrapper input[type=checkbox]{
+    width:60px;
+    height: 25px;
+    background-color: #fff;
+    -webkit-appearance:none;
+    border-radius: 30px;
+    outline: none;
+    position: relative;
+    border:1px solid black;
+    font-weight: bolder;
+    font-size: 11px;
+}
+.wrapper input[type=checkbox]:before{
+    content: 'Oui';
+    position: absolute;
+    width: 32.5px;
+    height: 32.5px;
+    line-height: 32.5px;
+    text-align: center;
+    border-radius: 50%;
+    background-color: #ff7689;
+    color:rgb(255, 255, 255);
+    box-shadow: 0 2px 10px 0 rgba(0,0,0,.5);
+    left: 27px;
+    top:-4px;
+    transition-duration: .5s;
+}
+.wrapper input:checked[type=checkbox]{
+    background-color: #262626;
+}
+.wrapper input:checked[type=checkbox]:before{
+    content: 'Non';
+    background-color: #262626;
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,.5);
+    left: 0;
+    transition-duration: .5s;
+    color:rgb(255, 255, 255);
+}
