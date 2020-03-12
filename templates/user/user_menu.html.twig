@@ -55,14 +55,14 @@
 
 {% block javascripts %}
 <script>
-$(document).ready(function() {
-    function affichageCache(event) {
-        console.log("tu as cliqué")
-        event.preventDefault();
-        document.getElementById("cache").classList.toggle("affiche-toi");
-    }
+    $(document).ready(function() {
+        function affichageCache(event) {
+            console.log("tu as cliqué")
+            event.preventDefault();
+            document.getElementById("cache").classList.toggle("affiche-toi");
+        }
 
-    document.getElementById("button").addEventListener("click", affichageCache);
-}
+        document.getElementById("button").addEventListener("click", affichageCache);
+    });
 </script>
 {% endblock %}
