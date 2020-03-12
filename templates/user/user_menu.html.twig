@@ -9,13 +9,30 @@
 
 {% if app.user %}
 <div class="container">
-
-
-<h2>Pseudo :</h2> <p>{{app.user.username}}</p>
-<h2>Email : </h2> <p>{{app.user.email}}</p>
-<p>Modifier Email</p>
+<h1>Mon Compte</h1>
+<div class="ligne">
+<h5>Pseudo : </h5> <p> {{app.user.username}}</p>
+</div>
+<div class="ligne">
+<h5>Email : </h5> <p> {{app.user.email}}</p>
+</div>   
+    
+    <div id="content">
+      <a href="#" id="button">Je suis le bouton qui est censé ouvrir la case pour modifier l'email</a>
+       <div class="hidden-content" id="cache">
+         Je suis caché
+       </div>
+    </div>
+    
 {{ form_start(form) }}
+
 {{ form_row(form.email,{'attr': {'class': 'email'}}) }}
+
+<div class="ligne">
+<h5>Mot de Passe : </h5>
+<a  href="" class="btn-mdp">Changer de Mot de passe</a>
+<a  href="" class="btn-mdp">J'ai oublié mon mot de passe</a>
+</div>
 
 {% block integer_widget %}
 <link rel="stylesheet" href="/css/user/profil.css">
@@ -27,10 +44,25 @@
     <button  type="submit" class="btn">Enregistrer</button>
 {{ form_end(form) }}
 </div>
+
 {% else %}
 <div class="error">
 <p>Tu n'es pas connecté !🧐</br> Pour consulter ton compte <a href="{{path('app_login')}}">Connecte Toi</a></p>
 </div>
 {% endif %}
 
+{% endblock %}
+
+{% block javascripts %}
+<script>
+$(document).ready(function() {
+    function affichageCache(event) {
+        console.log("tu as cliqué")
+        event.preventDefault();
+        document.getElementById("cache").classList.toggle("affiche-toi");
+    }
+
+    document.getElementById("button").addEventListener("click", affichageCache);
+}
+</script>
 {% endblock %}

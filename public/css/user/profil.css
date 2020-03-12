@@ -1,10 +1,19 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+
 .error{
     font-size: 2em;
     text-align: center;
     margin-top: 40px;
 }
 
+h1{
+    text-align: center;
+    margin-bottom: 20px ;
+}
 
+.container{
+    margin-top:40px;
+}
 
 .wrapper input[type=checkbox]{
     width:60px;
@@ -44,3 +53,66 @@
     transition-duration: .5s;
     color:rgb(255, 255, 255);
 }
+
+.ligne{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.btn{
+    display: block;
+    background-color: #fcd8d8;
+    margin: auto;
+    width: 400px;
+    margin-top: 40px;
+    font-size: 25px;
+    text-align: center;
+    border: none;
+    border-radius:5px;
+    text-decoration: none;
+    padding : 10px;
+    cursor: pointer;
+    color:#000;
+    font-weight: 500;
+}
+
+.btn:hover{
+    background-color:#f8bfbf;;
+    text-decoration: none;
+    color:#000;
+}
+
+.btn-mdp{
+    display: block;
+    background-color: #fbd9d8;
+    margin: auto;
+    width: 400px;
+    font-size: 25px;
+    text-align: center;
+    border: none;
+    border-radius:5px;
+    text-decoration: none;
+    padding : 10px;
+    cursor: pointer;
+    color:white;
+    font-weight: 400;
+    transition-timing-function: ease-in;
+    transition-duration: 0.2s;
+}
+
+.btn-mdp:hover{
+    background-color: #ff7688;
+    text-decoration: none;
+    color:#fff;
+    transition-timing-function: ease-in;
+    transition-duration: 0.2s;
+}
+
+.hidden-content{
+    display: none;
+  }
+  
+  .affiche-toi{
+    display: block !important;
+  }
