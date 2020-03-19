@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\PasswordType;
+use App\Form\NewPasswordType;
 use App\Form\UserMenuType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,10 +26,10 @@ class UserMenuController extends AbstractController
         $form = $this->createForm(UserMenuType::class, $user);
         $form->handleRequest($request);
 
-        $formpassword = $this->createForm(PasswordType::class);
+        $formpassword = $this->createForm(NewPasswordType::class);
         $formpassword->handleRequest($request);
 
-        if($formpassword->isSubmitted()){
+        if($formpassword->isSubmitted()&& $form->isValid()){
             
             $old_pwd = $formpassword->get('oldpassword')->getData(); 
             $new_pwd = $formpassword->get('newpassword')->getData(); 
