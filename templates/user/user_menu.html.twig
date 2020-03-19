@@ -7,82 +7,74 @@
 {% block body %}
 
 
-{% if app.user %}
-<div class="container">
-<h1>Mon Compte</h1>
-<div class="ligne">
-<h5>Pseudo : </h5> <p> {{app.user.username}}</p>
-</div>
-<div class="ligne">
-<h5>Email : </h5> <p> {{app.user.email}}</p>
-</div>   
+    {% if app.user %}
+        <div class="container">
+            <h1>Mon Compte</h1>
+            <div class="ligne">
+                <h5>Pseudo : </h5> <p> {{app.user.username}}</p>
+            </div>
+            <div class="ligne">
+                <h5>Email : </h5> <p> {{app.user.email}}</p>
+            </div>
     
-    {{ form_start(form) }}
-    
-{{ form_start(form) }}
+            {{ form_start(form) }}
 
-<div id="content">
-      <a href="#" id="button" class="btn-mdp">Changer Email</a>
-       <div class="hidden-content" id="cache">
-         {{ form_row(form.email,{'attr': {'class': 'email'}}) }}
-       </div>
-</div>
+                <div id="content">
+                    <a href="#" id="button" class="btn-mdp">Changer Email</a>
+                    <div class="hidden-content" id="cache">
+                        {{ form_row(form.email,{'attr': {'class': 'email'}}) }}
+                    </div>
+                </div>
 
 
+                {% block integer_widget %}
+                    <link rel="stylesheet" href="/css/user/profil.css">
+                    <div class="wrapper">   
+                        {{ form_row(form.newsletter) }}
+                    </div>
+                {% endblock %}
 
+                <button  type="submit" class="btn">Enregistrer</button>
+            {{ form_end(form) }}
+            <h5>Mot de Passe : </h5>
+            <div id="content">
+                <a href="#" id="button2" class="btn-mdp">Changer Mot de Passe</a>
+                <div class="hidden-content" id="cache2">
+                    {{ form_start(formpassword) }}
+                    {{ form_row(formpassword.oldpassword) }}
+                    {{ form_row(formpassword.newpassword) }}
+                    {{ form_row(formpassword.confirm_newpassword) }}
 
-<h5>Mot de Passe : </h5>
-<div id="content">
-      <a href="#" id="button2" class="btn-mdp">Changer Mot de Passe</a>
-       <div class="hidden-content" id="cache2">
-            {{ form_start(formpassword) }}
-            {{ form_row(formpassword.oldpassword) }}
-            {{ form_row(formpassword.newpassword) }}
-            {{ form_row(formpassword.confirm_newpassword) }}
-
-            <button  type="submit" class="btn">Enregistrer</button>
-            {{ form_end(formpassword) }}
-       </div>
-</div>
-
-
-{% block integer_widget %}
-<link rel="stylesheet" href="/css/user/profil.css">
-<div class="wrapper">   
-    {{ form_row(form.newsletter) }}
-</div>
-{% endblock %}
-
-    <button  type="submit" class="btn">Enregistrer</button>
-{{ form_end(form) }}
-</div>
-
-{% else %}
-<div class="error">
-<p>Tu n'es pas connecté !🧐</br> Pour consulter ton compte <a href="{{path('app_login')}}">Connecte Toi</a></p>
-</div>
-{% endif %}
-
+                    <button  type="submit" class="btn">Enregistrer</button>
+                    {{ form_end(formpassword) }}
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="error">
+            <p>Tu n'es pas connecté !🧐</br> Pour consulter ton compte <a href="{{path('app_login')}}">Connecte Toi</a></p>
+        </div>
+    {% endif %}
 {% endblock %}
 
 {% block javascripts %}
-<script>
-    $(document).ready(function() {
-        function affichageCache(event) {
-            console.log("tu as cliqué mail")
-            event.preventDefault();
-            document.getElementById("cache").classList.toggle("affiche-toi");
-        }
+    <script>
+        $(document).ready(function() {
+            function affichageCache(event) {
+                console.log("tu as cliqué mail")
+                event.preventDefault();
+                document.getElementById("cache").classList.toggle("affiche-toi");
+            }
 
-        document.getElementById("button").addEventListener("click", affichageCache);
-//------------------------------------------------------------------------------------>
-        function affichageCache2(event) {
-            console.log("tu as cliqué mdp")
-            event.preventDefault();
-            document.getElementById("cache2").classList.toggle("affiche-toi");
-        }
+            document.getElementById("button").addEventListener("click", affichageCache);
+    //------------------------------------------------------------------------------------>
+            function affichageCache2(event) {
+                console.log("tu as cliqué mdp")
+                event.preventDefault();
+                document.getElementById("cache2").classList.toggle("affiche-toi");
+            }
 
-        document.getElementById("button2").addEventListener("click", affichageCache2);
-    });
-</script>
+            document.getElementById("button2").addEventListener("click", affichageCache2);
+        });
+    </script>
 {% endblock %}
