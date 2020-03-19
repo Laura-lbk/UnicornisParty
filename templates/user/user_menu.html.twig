@@ -41,11 +41,11 @@
                 <a href="#" id="button2" class="btn-mdp">Changer Mot de Passe</a>
                 <div class="hidden-content" id="cache2">
                     {{ form_start(formpassword) }}
-                    {{ form_row(formpassword.oldpassword) }}
-                    {{ form_row(formpassword.newpassword) }}
-                    {{ form_row(formpassword.confirm_newpassword) }}
-
-                    <button  type="submit" class="btn">Enregistrer</button>
+                        {{ form_row(formpassword.oldpassword) }}
+                        {{ form_row(formpassword.newpassword) }}
+                        {{ form_row(formpassword.confirm_newpassword) }}
+                        <p id="errorPasswordForm" class="invisible text-danger">Les mots de passe ne correspondent pas ou sont vides.</p>
+                        <button  type="submit" class="btn">Enregistrer</button>
                     {{ form_end(formpassword) }}
                 </div>
             </div>
@@ -59,6 +59,29 @@
 
 {% block javascripts %}
     <script>
+
+        function checkingIfBothPasswordAreEqual() {
+            var input1 = document.getElementById("new_password_newpassword");
+            var input2 = document.getElementById("new_password_confirm_newpassword");
+
+            if (input1.value === input2.value && input1.value !== "") {
+                document.getElementById("errorPasswordForm").classList.add("invisible");
+            }
+            else {
+                document.getElementById("errorPasswordForm").classList.remove("invisible");
+            }
+        }
+
+        function submitPassCheck(event) {
+            var input1 = document.getElementById("new_password_newpassword");
+            var input2 = document.getElementById("new_password_confirm_newpassword");
+
+            if (input1.value === input2.value && input1.value !== "") {}
+            else {
+                event.preventDefault();
+            }
+        }
+
         $(document).ready(function() {
             function affichageCache(event) {
                 console.log("tu as cliqué mail")
@@ -75,6 +98,11 @@
             }
 
             document.getElementById("button2").addEventListener("click", affichageCache2);
+
+            document.getElementById("new_password_newpassword").addEventListener("keyup", checkingIfBothPasswordAreEqual);
+            document.getElementById("new_password_confirm_newpassword").addEventListener("keyup", checkingIfBothPasswordAreEqual);
+
+            document.getElementsByName("new_password")[0].addEventListener("submit", submitPassCheck)
         });
     </script>
 {% endblock %}
