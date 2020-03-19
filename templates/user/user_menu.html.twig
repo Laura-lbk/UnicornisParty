@@ -17,22 +17,29 @@
 <h5>Email : </h5> <p> {{app.user.email}}</p>
 </div>   
     
-    <div id="content">
-      <a href="#" id="button">Je suis le bouton qui est censé ouvrir la case pour modifier l'email</a>
-       <div class="hidden-content" id="cache">
-         Je suis caché
-       </div>
-    </div>
+    {{ form_start(form) }}
     
 {{ form_start(form) }}
 
-{{ form_row(form.email,{'attr': {'class': 'email'}}) }}
-
-<div class="ligne">
-<h5>Mot de Passe : </h5>
-<a  href="" class="btn-mdp">Changer de Mot de passe</a>
-<a  href="" class="btn-mdp">J'ai oublié mon mot de passe</a>
+<div id="content">
+      <a href="#" id="button" class="btn-mdp">Changer Email</a>
+       <div class="hidden-content" id="cache">
+         {{ form_row(form.email,{'attr': {'class': 'email'}}) }}
+       </div>
 </div>
+
+
+
+
+<h5>Mot de Passe : </h5>
+<div id="content">
+      <a href="#" id="button2" class="btn-mdp">Changer Mot de Passe</a>
+       <div class="hidden-content" id="cache2">
+         {{ render(controller(
+        'App\\Controller\\UserMenuController::passwordChange', {'id': iduser})) }}
+       </div>
+</div>
+
 
 {% block integer_widget %}
 <link rel="stylesheet" href="/css/user/profil.css">
@@ -57,12 +64,20 @@
 <script>
     $(document).ready(function() {
         function affichageCache(event) {
-            console.log("tu as cliqué")
+            console.log("tu as cliqué mail")
             event.preventDefault();
             document.getElementById("cache").classList.toggle("affiche-toi");
         }
 
         document.getElementById("button").addEventListener("click", affichageCache);
+//------------------------------------------------------------------------------------>
+        function affichageCache2(event) {
+            console.log("tu as cliqué mdp")
+            event.preventDefault();
+            document.getElementById("cache2").classList.toggle("affiche-toi");
+        }
+
+        document.getElementById("button2").addEventListener("click", affichageCache2);
     });
 </script>
 {% endblock %}

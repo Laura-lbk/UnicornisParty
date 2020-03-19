@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\PasswordType;
 use App\Form\UserMenuType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserMenuController extends AbstractController
 {
@@ -40,7 +42,40 @@ class UserMenuController extends AbstractController
         return $this->render('user/user_menu.html.twig', [
             'controller_name' => 'UserMenuController',
             'form'=>$form->createView(),
-            'email'=>$email
+            'email'=>$email,
+            'iduser'=>$id
+        ]);
+    }
+
+    public function passwordChange($id, Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder){
+
+        $form = $this->createForm(PasswordType::class);
+        $form->handleRequest($request);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $user = $entityManager->getRepository(User::class)->find($id);
+
+        var_dump($user);
+        
+        if($form->isSubmitted()&& $form->isValid()){
+            
+            $old_pwd = $form->get('oldpassword')->getData(); 
+            $new_pwd = $form->get('newpassword')->getData(); 
+            $checkPass = $encoder->isPasswordValid($user, $old_pwd);
+
+            if($checkPass === true) {
+                $new_pwd_encoded = $encoder->encodePassword($user, $new_pwd); 
+                $user->setPassword($new_pwd_encoded);
+                $manager->persist($user);
+                $manager->flush();
+                    
+            } else {
+              return new jsonresponse(array('error' => 'Mauvais Mot de Passe.'));
+            }
+          }
+        
+        return $this->render('user/user_password.html.twig', [
+            'form'=>$form->createView(),
         ]);
     }
 }
