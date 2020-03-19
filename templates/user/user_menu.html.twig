@@ -35,8 +35,12 @@
 <div id="content">
       <a href="#" id="button2" class="btn-mdp">Changer Mot de Passe</a>
        <div class="hidden-content" id="cache2">
-         {{ render(controller(
-        'App\\Controller\\UserMenuController::passwordChange', {'id': iduser})) }}
+            {{ form_start(formpassword) }}
+            {{ form_row(formpassword.oldpassword) }}
+            {{ form_row(formpassword.newpassword) }}
+
+            <button  type="submit" class="btn">Enregistrer</button>
+            {{ form_end(formpassword) }}
        </div>
 </div>
 

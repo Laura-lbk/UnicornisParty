@@ -16,7 +16,7 @@ class UserMenuController extends AbstractController
     /**
      * @Route("/MonProfil/{id}", name="profil")
      */
-    public function index($id, Request $request, EntityManagerInterface $manager)
+    public function index($id, Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {
         $entityManager = $this->getDoctrine()->getManager();
         $user = $entityManager->getRepository(User::class)->find($id);
@@ -25,6 +25,27 @@ class UserMenuController extends AbstractController
         
         $form = $this->createForm(UserMenuType::class, $user);
         $form->handleRequest($request);
+
+        $formpassword = $this->createForm(PasswordType::class);
+        $formpassword->handleRequest($request);
+
+        if($formpassword->isSubmitted()){
+            
+            $old_pwd = $formpassword->get('oldpassword')->getData(); 
+            $new_pwd = $formpassword->get('newpassword')->getData(); 
+            $checkPass = $encoder->isPasswordValid($user, $old_pwd);
+
+            if($checkPass === true) {
+                $new_pwd_encoded = $encoder->encodePassword($user, $new_pwd); 
+                $user->setPassword($new_pwd_encoded);
+                $manager->persist($user);
+                $manager->flush();
+                    
+            } else {
+              return new jsonresponse(array('error' => 'Mauvais Mot de Passe.'));
+            }
+          }
+
         
         if($form->isSubmitted()){
             $newemail = $form->get('email')->getData();
@@ -42,40 +63,11 @@ class UserMenuController extends AbstractController
         return $this->render('user/user_menu.html.twig', [
             'controller_name' => 'UserMenuController',
             'form'=>$form->createView(),
+            'formpassword'=>$formpassword->createView(),
             'email'=>$email,
             'iduser'=>$id
         ]);
     }
 
-    public function passwordChange($id, Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder){
-
-        $form = $this->createForm(PasswordType::class);
-        $form->handleRequest($request);
-
-        $entityManager = $this->getDoctrine()->getManager();
-        $user = $entityManager->getRepository(User::class)->find($id);
-
-        var_dump($user);
-        
-        if($form->isSubmitted()&& $form->isValid()){
-            
-            $old_pwd = $form->get('oldpassword')->getData(); 
-            $new_pwd = $form->get('newpassword')->getData(); 
-            $checkPass = $encoder->isPasswordValid($user, $old_pwd);
-
-            if($checkPass === true) {
-                $new_pwd_encoded = $encoder->encodePassword($user, $new_pwd); 
-                $user->setPassword($new_pwd_encoded);
-                $manager->persist($user);
-                $manager->flush();
-                    
-            } else {
-              return new jsonresponse(array('error' => 'Mauvais Mot de Passe.'));
-            }
-          }
-        
-        return $this->render('user/user_password.html.twig', [
-            'form'=>$form->createView(),
-        ]);
-    }
+   
 }
