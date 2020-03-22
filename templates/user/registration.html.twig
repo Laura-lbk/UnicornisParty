@@ -12,6 +12,7 @@
 {{ form_row(form.username, {'label':'Nom d\'Utilisateur'}) }}
 {{ form_row(form.password, {'label':'Mot de Passe'}) }}
 {{ form_row(form.confirm_password, {'label':'Confirmation Mot de Passe'}) }}
+{{ form_row(form.newsletter) }}
 <div>
 <div class="form-check">
     <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
@@ -19,6 +20,7 @@
     <a class="cgu_link" target="_blank" href="{{path('cgu')}}">CGU</a>
     </label>
 </div>
+
     <button  type="submit" class="btn-sucess">Inscription</button>
 {{ form_end(form) }}
 

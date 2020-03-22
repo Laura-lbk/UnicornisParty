@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+
+.error{
+    font-size: 2em;
+    text-align: center;
+    margin-top: 40px;
+}
+
+h1{
+    text-align: center;
+    margin-bottom: 20px ;
+}
+
+.container{
+    margin-top:40px;
+}
+
+.wrapper input[type=checkbox]{
+    width:60px;
+    height: 25px;
+    background-color: #fff;
+    -webkit-appearance:none;
+    border-radius: 30px;
+    outline: none;
+    position: relative;
+    border:1px solid black;
+    font-weight: bolder;
+    font-size: 11px;
+}
+.wrapper input[type=checkbox]:before{
+    content: 'Oui';
+    position: absolute;
+    width: 32.5px;
+    height: 32.5px;
+    line-height: 32.5px;
+    text-align: center;
+    border-radius: 50%;
+    background-color: #ff7689;
+    color:rgb(255, 255, 255);
+    box-shadow: 0 2px 10px 0 rgba(0,0,0,.5);
+    left: 27px;
+    top:-4px;
+    transition-duration: .5s;
+}
+.wrapper input:checked[type=checkbox]{
+    background-color: #262626;
+}
+.wrapper input:checked[type=checkbox]:before{
+    content: 'Non';
+    background-color: #262626;
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,.5);
+    left: 0;
+    transition-duration: .5s;
+    color:rgb(255, 255, 255);
+}
+
+.ligne{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.btn{
+    display: block;
+    background-color: #ff7688;
+    margin: auto;
+    margin-bottom: 20px;
+    width: 400px;
+    margin-top: 40px;
+    font-size: 25px;
+    text-align: center;
+    border: none;
+    border-radius:5px;
+    text-decoration: none;
+    padding : 10px;
+    cursor: pointer;
+    color:#fff;
+    font-weight: 500;
+}
+
+.btn:hover{
+    background-color:#fd99a7;
+    text-decoration: none;
+    color:#fff;
+}
+
+.btn-mdp{
+    display: inline-block;
+    background-color: #1a1a1a;
+    font-size: 25px;
+    text-align: center;
+    border: none;
+    border-radius:5px;
+    text-decoration: none;
+    padding : 10px;
+    cursor: pointer;
+    color:white;
+    font-weight: 400;
+    transition-timing-function: ease-in;
+    transition-duration: 0.2s;
+    margin-bottom:10px;
+}
+
+.btn-mdp:hover{
+    background-color: #ff7688;
+    text-decoration: none;
+    color:#fff;
+    transition-timing-function: ease-in;
+    transition-duration: 0.2s;
+}
+
+.hidden-content{
+    display: none;
+  }
+  
+  .affiche-toi{
+    display: block !important;
+  }
+
+p{
+    font-size: 1.3em;
+    margin-left: 5px;
+    margin-top: -5px;
+}

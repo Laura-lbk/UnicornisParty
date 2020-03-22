@@ -50,6 +50,22 @@ class User implements UserInterface
      */
     public $confirm_password;
 
+    /**
+     * @Assert\Length(min="8", minMessage="Voter mot de passe doit avoir minimum 8 caractères")
+     * @Assert\EqualTo(propertyPath="confirm_newpassword", message="Les mots de passe doivent correspondre")
+     */
+    public $newpassword;
+
+    /**
+     * @Assert\EqualTo(propertyPath="newpassword", message="Les mots de passe doivent correspondre")
+     */
+    public $confirm_newpassword;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $newsletter;
+
     public function setRoles()
     {
         $this->roles = array('ROLE_USER');
@@ -110,5 +126,17 @@ class User implements UserInterface
 
     public function eraseCredentials()
     {
+    }
+
+    public function getNewsletter(): ?bool
+    {
+        return $this->newsletter;
+    }
+
+    public function setNewsletter(?bool $newsletter): self
+    {
+        $this->newsletter = $newsletter;
+
+        return $this;
     }
 }

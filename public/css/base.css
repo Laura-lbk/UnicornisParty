@@ -1,5 +1,5 @@
 .dropdown-item{
-    font-size: 2em;
+    font-size: 1.5em;
 }
 
 .nav-item{
@@ -13,4 +13,9 @@
 
 .navbar-brand{
     font-size: 2em;
+}
+
+.form_inline{
+    font-size: 2em;
+    color: white;
 }
