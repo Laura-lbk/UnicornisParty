@@ -19,6 +19,21 @@ class AvisJeuRepository extends ServiceEntityRepository
         parent::__construct($registry, AvisJeu::class);
     }
 
+    public function findCover(): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            SELECT cover FROM avis_jeu p
+            ORDER BY p.id ASC
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetchAll();
+    }
+
     // /**
     //  * @return AvisJeu[] Returns an array of AvisJeu objects
     //  */
