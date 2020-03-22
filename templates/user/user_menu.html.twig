@@ -10,6 +10,7 @@
     {% if app.user %}
         <div class="container">
             <h1>Mon Compte</h1>
+            <p>Voici les Réglages Basiques de Votre compte :</p></br>
             <div class="ligne">
                 <h5>Pseudo : </h5> <p> {{app.user.username}}</p>
             </div>
@@ -36,8 +37,11 @@
 
                 <button  type="submit" class="btn">Enregistrer</button>
             {{ form_end(form) }}
-            <h5>Mot de Passe : </h5>
-            <div id="content">
+
+            
+            <div class="password" id="content">
+                </br></br>
+                <p>Si vous pensez que votre mot de passe est en danger vous pouvez le changer ici :</p>
                 <a href="#" id="button2" class="btn-mdp">Changer Mot de Passe</a>
                 <div class="hidden-content" id="cache2">
                     {{ form_start(formpassword) }}
