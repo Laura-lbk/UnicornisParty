@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+
+<link rel="stylesheet" href="/css/news/displaynews.css">
+<link rel="stylesheet" href="/css/avis/jeu.css">
+
+{% endblock %}
+
+{% block body %}
+<section class="article_news_container">
+
+    {% if is_granted('ROLE_ADMIN') %}
+    <div class="add_theme_container">
+        <a class="add_avis" href="{{path('add_avis')}}">Ajouter Critique</a>
+    </div>
+    {% endif %}
+
+    {% for article in articlepage %}
+
+        <article class="article_jeu">
+        <div class="titre">
+        {{article.titre}}
+        <a class="show_avis" href="{{path('show_avis', {'id':article.id})}}"></a>
+        </div>
+        <img class="cover" src="/images/avis/{{article.cover}}" alt="">
+            {% if is_granted('ROLE_ADMIN') %}
+            <div class="crud_jeu">
+                <a href="{{path('edit_avis', {'id':article.id})}}">MODIFIER</a>
+                <a href="{{path('remove_avis_choix', {'id':article.id})}}">SUPPRIMER</a>
+            </div>
+            {% endif %} 
+
+        
+
+
+        </article>
+
+    {% endfor %}
+    <div class="espace"></div>
+    <div class="paginator">
+            {{knp_pagination_render(articlepage)}} 
+    </div>
+    </section>
+    {#Pagination des News#}
+{% endblock %}

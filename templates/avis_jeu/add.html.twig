@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}<link rel="stylesheet" href="/css/news/formulaire.css">{% endblock %}
+
+
+{% block body %}
+    <div    class="formulaire">
+    {{form_start(form)}}
+
+    {{ form_row(form.titre, {'label':'Titre :','attr': {'placeholder':"Titre"}} )}}
+    {{ form_row(form.contenu, {'label':'Contenu :','attr': {'class': 'contenu'}}) }}
+    {{ form_row(form.categorie, {'label':'Catégorie :' })}}
+    {{ form_row(form.cover, {'label':'Image :'}) }}
+
+    <button type="submit" class="btn-sucess">Envoyer</button>
+
+    {{form_end(form)}}
+    </div>
+
+{% endblock %}

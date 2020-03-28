@@ -1,0 +1,23 @@
+{% extends 'base.html.twig'%}
+
+{% block stylesheets %}
+
+<link rel="stylesheet" href="/css/news/shownews.css">
+
+{% endblock %}
+
+{% block body %}
+    <body>
+
+    <img class="image_news" src="/images/avis/{{avis.cover}}" alt="">
+
+            <article class="container_news">
+                <h2 class="titre_articlenews"> {{avis.titre}}</h2>
+                <div class="contenu_articlenews">{{avis.contenu | raw}}</div>
+                <div class="metadata">Posté le : {{avis.date | date('d/m/Y - H:i')}} </div>
+            </article>
+
+
+        
+    </body>
+{% endblock %}

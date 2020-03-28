@@ -8,14 +8,13 @@
 {% block body %}
 
 <div class="choix">
-     Voulez vous vraiment supprimer cet Arricle ?
+     Voulez vous vraiment supprimer cette Critique ?
      <div>
-        <a class="non" href="{{path('remove_news',{'id': id})}}">OUI</a>
-        <a class="non" href="{{path('homepage')}}">NON</a>
+        <a class="non" href="{{path('remove_avis',{'id': id})}}">OUI</a>
+        <a class="non" href="{{path('avis_jeu')}}">NON</a>
     </div>
 
 
 
 
 {% endblock %}
-
