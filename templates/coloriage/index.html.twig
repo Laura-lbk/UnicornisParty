@@ -22,6 +22,11 @@
     {% for coloriage in coloriagespage %}
 
     <article class="coloriage">
+    {% if is_granted('ROLE_ADMIN') %}
+            <div class="crud_coloriage">
+                <a href="{{path('remove_coloriage_choix', {'id':coloriage.id})}}">SUPPRIMER</a>
+            </div>
+    {% endif %} 
     <a href="/pdf/{{coloriage.path}}" download="{{coloriage.pdfname}}">
         <img class="image_coloriage" src="/images/coloriage/{{coloriage.image}}" alt=""/>
         <div class="nom_coloriage">{{coloriage.nom}}</div>

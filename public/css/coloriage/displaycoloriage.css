@@ -65,3 +65,23 @@ width: 100%;
 text-align: center;
 margin-top: 20px;
 }
+
+.crud_coloriage{
+    background-color: #1a1a1a;
+    text-align: center;
+}
+
+.crud_coloriage:hover{
+    background-color: #aa1313;
+    text-align: center;
+}
+
+.crud_coloriage a{
+    color: #fff;
+    text-decoration: none;
+}
+
+.crud_coloriage a:hover{
+    color: #fff;
+    text-decoration: none;
+}

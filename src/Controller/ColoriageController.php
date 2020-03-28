@@ -120,4 +120,33 @@ class ColoriageController extends AbstractController
             'form'=>$form->createView(),
         ]);
     }
+
+        /**
+     * @Route("/admin/coloriage/remove/{id}", name="remove_coloriage_choix")
+     * @IsGranted("ROLE_ADMIN")
+     */
+
+    public function choixRemoveAvis($id){
+
+        return $this->render('coloriage/remove.html.twig',[
+            'id'=>$id
+        ]);
+    }
+
+    /**
+     * @Route("/admin/coloriage/{id}", name="remove_coloriage")
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function removeAvis($id)
+    {
+        //Récupération de l'Article
+        $entityManager = $this->getDoctrine()->getManager();
+        $coloriage = $entityManager->getRepository(Coloriage::class)->find($id);
+
+        //Suppression de l'Article
+        $entityManager->remove($coloriage);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('coloriage');
+    }
 }

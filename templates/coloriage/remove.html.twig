@@ -1,0 +1,20 @@
+{# View de la création d'un Article de News#}
+
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+
+{% endblock %}
+{% block body %}
+
+<div class="choix">
+     Voulez vous vraiment supprimer ce Coloriage ?
+     <div>
+        <a class="non" href="{{path('remove_coloriage',{'id': id})}}">OUI</a>
+        <a class="non" href="{{path('coloriage')}}">NON</a>
+    </div>
+
+
+
+
+{% endblock %}
