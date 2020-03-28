@@ -1,0 +1,27 @@
+{# View de la création d'un Article de News#}
+
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="/css/news/formulaire.css">
+{% endblock %}
+
+{% block body %}
+
+{{ form_start(form) }}
+
+    <div class="formulaire">
+    {{ form_row(form.titre, {'label':'Titre :'}) }}
+    
+    {{ form_row(form.contenu, {'label':'Contenu :','attr': {'class': 'contenu'}}) }}
+
+    {{ form_row(form.cover, {'label':'Couverture :'}) }}
+    
+    {{ form_row(form.categorie, {'label':'Catégorie :'}) }}
+    <div>
+
+    <button  type="submit" class="btn">Modifier</button>
+{{ form_end(form) }}
+
+
+{% endblock %}

@@ -20,12 +20,12 @@ class AvisJeuController extends AbstractController
     /**
      * @Route("/avis/jeu", name="avis_jeu")
      */
-    public function index(PaginatorInterface $paginator, Request $request)
+    public function indexDivers(PaginatorInterface $paginator, Request $request)
     {
         $repo = $this->getDoctrine()->getRepository(AvisJeu::class); 
 
         $articles=$repo->findBy(
-            array(),
+            ['categorie' => 'Divers'],
             array('id'=>'DESC'));
 
         $articlepage=$paginator->paginate(
@@ -37,6 +37,43 @@ class AvisJeuController extends AbstractController
 
         return $this->render('avis_jeu/all.html.twig',[
             'articlepage'=>$articlepage
+        ]);
+    }
+
+     /**
+     * @Route("/avis/jeu_equitation", name="avis_jeu_cheval")
+     */
+    public function indexCheval(PaginatorInterface $paginator, Request $request)
+    {
+        $repo = $this->getDoctrine()->getRepository(AvisJeu::class); 
+
+        $articles=$repo->findBy(
+            ['categorie' => 'Cheval'],
+            array('id'=>'DESC'));
+
+        $articlepage=$paginator->paginate(
+                $articles,
+                $request->query->getInt('page',1),
+                6 //max de articles par page
+
+        );   
+
+        return $this->render('avis_jeu/all.html.twig',[
+            'articlepage'=>$articlepage
+        ]);
+    }
+
+    /**
+     * @Route("/avis/{id}", name="show_avis")
+     */
+    public function show($id)
+    {
+        $repo = $this->getDoctrine()->getRepository(AvisJeu::class);
+
+        $avis = $repo->find($id);
+    	
+        return $this->render('avis_jeu/show.html.twig',[
+            'avis'=> $avis
         ]);
     }
 
@@ -104,5 +141,92 @@ class AvisJeuController extends AbstractController
     	return $this->render('avis_jeu/add.html.twig',[
             'form'=>$form->createView()
         ]);
+    }
+
+    //Modifier un Article News
+    /**
+     * @Route("/admin/news/avis/{id}", name="edit_avis")
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function edit($id, Request $request)
+    {
+        //Récupération du Article News
+        $entityManager = $this->getDoctrine()->getManager();
+        $news = $entityManager->getRepository(AvisJeu::class)->find($id);
+        $titre=$news->getTitre();
+        $contenu=$news->getContenu();
+        $cover=$news->getCover();
+
+        $Filename_cover=$cover;
+
+        //Création d'un Formulaire
+        $form = $this->createForm(AvisJeuType::class, $news);
+        $form->handleRequest($request);
+
+        //Modification du Article News
+        if($form->isSubmitted()&& $form->isValid()){
+            $news->setTitre($form['titre']->getData());
+            $news->setContenu($form['contenu']->getData());
+            $cover=$form['cover']->getData();
+            if($cover!=NULL){
+                
+                $coverFile = $form->get('cover')->getData();
+
+                if ($coverFile) {
+                try {
+                    $coverFile->move(
+                        $this->getParameter('cover_avis_directory'),
+                        $Filename_cover
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                $news->setCover($Filename_cover);
+            }
+            }
+                
+            $manager=$this->getDoctrine()->getManager();
+            $manager->persist($news);
+            $manager->flush();
+
+            return $this->redirectToRoute('avis_jeu');
+        }
+
+        return $this->render('avis_jeu/edit_avis.html.twig',[
+            'id'=>$id,
+            'contenu'=>$contenu,
+            'form'=>$form->createView()
+        ]);
+
+    }
+
+    /**
+     * @Route("/admin/avis/remove/{id}", name="remove_avis_choix")
+     * @IsGranted("ROLE_ADMIN")
+     */
+
+    public function choixRemoveAvis($id){
+
+        return $this->render('avis_jeu/remove_avis.html.twig',[
+            'id'=>$id
+        ]);
+    }
+
+    /**
+     * @Route("/admin/delete/{id}", name="remove_avis")
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function removeAvis($id)
+    {
+        //Récupération de l'Article
+        $entityManager = $this->getDoctrine()->getManager();
+        $avis = $entityManager->getRepository(AvisJeu::class)->find($id);
+
+        //Suppression de l'Article
+        $entityManager->remove($avis);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('avis_jeu');
     }
 }

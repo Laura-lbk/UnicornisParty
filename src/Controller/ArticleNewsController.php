@@ -149,6 +149,8 @@ class ArticleNewsController extends AbstractController
         $contenu=$news->getContenu();
         $image=$news->getImage();
 
+        $Filename_cover=$image;
+
         //Création d'un Formulaire
         $form = $this->createForm(NewsType::class, $news);
         $form->handleRequest($request);
@@ -157,7 +159,25 @@ class ArticleNewsController extends AbstractController
         if($form->isSubmitted()&& $form->isValid()){
             $news->setTitre($form['titre']->getData());
             $news->setContenu($form['contenu']->getData());
-            $news->setImage($form['image']->getData());
+
+            $cover=$form['image']->getData();
+            if($cover!=NULL){
+                
+                $coverFile = $form->get('image')->getData();
+
+                if ($coverFile) {
+                try {
+                    $coverFile->move(
+                        $this->getParameter('image_news_directory'),
+                        $Filename_cover
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                $news->setImage($Filename_cover);
+                }
+            }
                 
             $manager=$this->getDoctrine()->getManager();
             $manager->persist($news);
