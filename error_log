@@ -1,0 +1,2 @@
+[06-Apr-2020 19:53:08 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'php_pdo.dll' (tried: C:\php\ext\php_pdo.dll (Le module spécifié est introuvable.), C:\php\ext\php_php_pdo.dll.dll (Le module spécifié est introuvable.)) in Unknown on line 0
+[06-Apr-2020 19:53:08 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library 'php_pdo_mysql.dll' (tried: C:\php\ext\php_pdo_mysql.dll (Le module spécifié est introuvable.), C:\php\ext\php_php_pdo_mysql.dll.dll (Le module spécifié est introuvable.)) in Unknown on line 0
