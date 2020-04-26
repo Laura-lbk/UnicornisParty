@@ -1,0 +1,1 @@
+[06-Apr-2020 19:42:15 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32768 bytes) in D:\Users\Utilisateur\Documents\Licence Pro\Projet\UnicornisParty\vendor\symfony\http-foundation\Session\Session.php on line 1

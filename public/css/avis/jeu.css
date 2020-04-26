@@ -17,6 +17,9 @@
     margin-top: 62.5px;
     text-align: center;
     white-space: nowrap;
+    overflow:hidden;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .cover{
@@ -83,4 +86,6 @@
     width:60%;
     height: 125px; ;
     margin-top: -112px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
